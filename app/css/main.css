@@ -1,0 +1,50 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-size: 1em;
+}
+
+a{
+	text-decoration: none;
+}
+
+.container{
+	width: 90%;
+	margin: 0 auto;
+}
+
+header{
+	height: 60px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+	overflow: hidden;
+	font-size: 2em;
+	z-index: 30;
+	position: relative;
+
+}
+
+header .container{
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-between;
+}
+header .logo{
+	
+}
+.filter-line{
+	background-color: #f7f7f7;
+	height: 60px;
+	font-size: 1.2em;
+	border-bottom: 1px solid #d5dddf;
+}
+.filter-line a{
+	display: inline-block;
+	color: #6f7577;
+	padding: 19px 0;
+	margin: 0 5px;
+	text-transform: uppercase;
+}
+.filter-line a:last-child{
+	float: right;
+}
