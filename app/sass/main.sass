@@ -11,7 +11,7 @@ a
 
 
 .container
-	width: 95%;
+	width: 90%;
 	margin: 0 auto;
 
 li
@@ -73,10 +73,19 @@ header
 	overflow-y: auto;
 	background-color: white;
 	width: 72%;
-	
+
+
 	a
+		width: 100%;
 		display: block;
-	
+
+	.search
+		li
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding-right: 20px;
+
 	.thread
 		border-bottom: 1px solid #eaeaea;
 		span
@@ -89,7 +98,10 @@ header
 			color: #444;
 	    
 	ul
+		position: relative;
+		z-index: 2;
 		overflow-y: auto;
+		background-color: #fff;
 		li
 			line-height: 60px;
 			padding-left: 20px;
@@ -100,6 +112,7 @@ header
 	position: relative;
 	max-width: 780px;
 	margin: 0 auto;
+	z-index: 1;
 
 .filter-line
 	display: flex;

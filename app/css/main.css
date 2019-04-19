@@ -9,7 +9,7 @@ a {
   text-decoration: none; }
 
 .container {
-  width: 95%;
+  width: 90%;
   margin: 0 auto; }
 
 li {
@@ -71,7 +71,22 @@ header {
   background-color: white;
   width: 72%; }
   .hidden-menu a {
+    width: 100%;
     display: block; }
+  .hidden-menu .search li {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding-right: 20px; }
   .hidden-menu .thread {
     border-bottom: 1px solid #eaeaea; }
     .hidden-menu .thread span {
@@ -83,7 +98,10 @@ header {
       line-height: 45px;
       color: #444; }
   .hidden-menu ul {
-    overflow-y: auto; }
+    position: relative;
+    z-index: 2;
+    overflow-y: auto;
+    background-color: #fff; }
     .hidden-menu ul li {
       line-height: 60px;
       padding-left: 20px;
@@ -93,7 +111,8 @@ header {
 .content-wrap {
   position: relative;
   max-width: 780px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  z-index: 1; }
 
 .filter-line {
   display: -webkit-box;
