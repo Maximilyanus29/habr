@@ -4,25 +4,33 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	font-size: 1em;
-
+	
 
 a
 	text-decoration: none;
 
 
 .container
-	width: 90%;
+	width: 95%;
 	margin: 0 auto;
+
+li
+	list-style: none;
+
+body
+	position: relative;
+	min-width: 320px;
+	background-color: #f7f7f7;
 
 
 header
+	background-color: #fff!important;
 	height: 60px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.2);
 	overflow: hidden;
-	font-size: 2em;
 	z-index: 30;
 	position: relative;
+	font-size: 1.2em;
 
 
 	.container
@@ -38,45 +46,195 @@ header
 		font-family: 'Bitter', serif;
 		font-weight: 800;
 		color: #323436;
+		font-size: 2em;
+
+
+
+
+
+
+.overlay
+	display: none;
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0,0,0,.2);
+
+.hidden-menu
+	display: none;
+	z-index: 40;
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	overflow-y: auto;
+	background-color: white;
+	width: 72%;
+	
+	a
+		display: block;
+	
+	.thread
+		border-bottom: 1px solid #eaeaea;
+		span
+			font-size: 0.8em;
+			padding-left: 20px;
+			color: #798e98;
+		li
+			border: none;
+			line-height: 45px;
+			color: #444;
+	    
+	ul
+		overflow-y: auto;
+		li
+			line-height: 60px;
+			padding-left: 20px;
+			color: #333;
+			border-bottom: 1px solid #eaeaea;
 
 .content-wrap
-	background-color: #f7f7f7;
+	position: relative;
+	max-width: 780px;
+	margin: 0 auto;
+
 .filter-line
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
 	background-color: #f7f7f7;
 	height: 60px;
-	font-size: 1.2em;
 	border-bottom: 1px solid #d5dddf;
 
 	a
 		position: relative;
-		display: inline-block;
 		color: #6f7577;
 		font-weight: 800;
-		padding: 19px 0;
+		padding: 20px 16px;
 		margin: 0 5px;
 		text-transform: uppercase;
 		&:last-child
 			float: right;
 
-	.active:before
-		content: '';
-		position: absolute;
-		width: 100%;
-		height: 2px;
-		background-color: blue;
-		bottom: 0;
+	.active:after
+		
+	    
+	    content: "";
+	    display: block;
+	    background-color: #77a8d0;
+	    height: 2px;
+	    
+	    position: absolute;
+	    left: 0;
+	    bottom: 0;
+	    width: 100%;
 
 .content
+	position: relative;
 	height: 600px;
+	a
+		color: #414b50;
 	.item
+		box-shadow: 0 0 10px rgba(0,0,0,0.2);
+		margin-bottom: 10px;
 		background: white;
+		padding: 16px;
 		.item-top
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
 			a
-				display: block;
+				margin: 0 3px;
+
+			span
+				color: #777;
 			.user-avatar-icon
-				width: 24px;
-				height: 24px;
-				background-color: red;
+				
+				img
+					width: 24px;
+					height: 24px;
+					background-color: red;
+					border-radius: 7px;
 
 
-			padding: 5px 0;
+			padding-bottom: 11px;
+
+		.item-content-preview
+			margin-bottom: 13px;
+			h2
+				a
+			
+
+					font-size: 20px;
+		.item-tags
+			margin-bottom: 20px;
+			a
+				border: 1px solid #afb0e2;
+				color: #6667a2;
+				padding: 4px 8px;
+				border-radius: 2px;
+				font-size: 12px;
+				line-height: 1.2;
+
+		.item-counters
+			padding-top: 7px;
+			display: flex;
+			justify-content: space-between;
+			span
+
+				color: #798e98;
+
+
+footer
+	background-color: #2b3134;
+	padding: 36px 16px 32px;
+	h6
+		text-align: center;
+		font-size: 2em;
+		padding-bottom: 32px;
+		a
+
+			color: white;
+
+	.connection
+		display: flex;
+		justify-content: center;
+		font-size: 7vw;
+		padding: 15px;
+		span
+			margin: 0 15px;
+			color: white;
+			i
+
+
+	.footer__link
+	    border: 1px solid #4b575d;
+	    box-sizing: border-box;
+	    color: #bdcdd6;
+	    cursor: pointer;
+	    display: flex;
+	    align-items: center;
+	    font-size: 14px;
+	    height: 48px;
+	    justify-content: center;
+	    margin: 0 0 16px;
+	    text-decoration: none;
+	    i
+	    	font-size: 1.2em;
+
+	.link-app
+		padding: 48px 0;
+		display: flex;
+		justify-content: center;
+		img
+			width: 40%;
+			min-height: 50px;
+			margin: 0 15px;
+
+	.footer_info
+		text-align: center;
+		color: white;
