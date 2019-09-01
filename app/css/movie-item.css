@@ -1,0 +1,35 @@
+.movie-item_recomended {
+  width: 45%;
+  margin: 10px 0; }
+
+.movie-item__movie-img {
+  position: relative; }
+  .movie-item__movie-img img {
+    -webkit-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.47);
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.47); }
+  .movie-item__movie-img_recomended {
+    max-width: 200px; }
+    .movie-item__movie-img_recomended img {
+      height: 150px; }
+      .movie-item__movie-img_recomended img:hover {
+        opacity: 0.8; }
+  .movie-item__movie-img_car {
+    max-width: 200px; }
+    .movie-item__movie-img_car img {
+      height: 250px; }
+
+.movie-item__desc {
+  display: block;
+  overflow: hidden;
+  text-align: center;
+  font-weight: 500; }
+  .movie-item__desc:hover {
+    text-decoration: underline; }
+  .movie-item__desc_recomended {
+    color: #BEC5D0; }
+  .movie-item__desc_car {
+    color: #b9b9b9;
+    height: 50px;
+    margin: 12px 0 3px 0; }

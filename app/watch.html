@@ -1,0 +1,277 @@
+<?php  
+
+ ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/base.css">
+<!-- 	<link rel="stylesheet" href="css/framework.css"> -->
+	<link rel="stylesheet" href="slick/slick.css">
+	<link rel="stylesheet" href="css/slick-theme.css">
+<!-- 	<link rel="stylesheet" href="slick/slick.css"> -->
+
+	<link rel="stylesheet" href="css/style2.css">
+<!-- 	<link rel="stylesheet" type="text/css" href="css/mine.css"> -->
+<!-- 	<link rel="stylesheet" type="text/css" href="css/reset-settings.css"> -->
+
+<link  href = "video/video-js.min.css"  rel = " stylesheet ">
+<!-- <script src = "//vjs.zencdn.net/7.3.0/video.min.js" > </script> -->
+
+	<title>Document</title>
+</head>
+<body>
+<div class="wrapper" id="wrapper">
+	<div class="wr-center">
+	<header class="top clearfix">
+		 <div class="robik flex"><a href="/" title="На главную">Kino-<span>FS</span></a></div>
+		 <ul class="top-menu clearfix">
+		 <li><a href="/load/filmy/1">Фильмы</a></li>
+		 <li><a href="/load/novinki/46">Новинки</a></li> 
+		 <li><a href="/load/serialy/22">Сериалы</a></li>
+		 <li><a href="/load/teleperedachi/47">Передачи</a></li>
+		 <li><a href="/load/multfilmy/41">Мультфильмы</a></li>
+		 </ul>
+		 <div class="top-buts clearfix">
+		 
+		 <div class="show-login" id="show-login">
+		 <span class="fas fa-sign-out-alt"></span> 
+		 <span>Войти</span> 
+		 
+		 </div>
+		 <div class="search-wrap">
+		 <form onsubmit="this.sfSbm.disabled=true" method="post" action="/load/" autocomplete="off">
+		 <div class="search-box">
+		 <input type="text" class="srch_fld" name="query" maxlength="100" onblur="if(this.value =='') this.value='Поиск...'" onfocus="if (this.value == 'Поиск...') this.value=''" placeholder="Поиск..." id="querys">
+		 <input name="a" value="2" type="hidden"> 
+		 <button type="submit" title="Найти"><i class="fas fa-search"></i></button>
+		 <div id="poisk2"></div>
+		 
+		 </div></form>
+		 </div></div>
+
+
+	</header>
+	<nav class="nav">
+ <ul>
+ <li><a href="/load/anime/49">Аниме</a></li> 
+ <li><a href="/load/boeviki/2">Боевики</a></li>
+ <li><a href="/load/vesterny/3">Вестерны</a></li>
+ <li><a href="/load/voennye/4">Военные</a></li>
+ <li><a href="/load/detektivy/5">Детективы</a></li>
+ <li><a href="/load/dramy/6">Драмы</a></li>
+ <li><a href="/load/istoricheskie/7">Исторические</a></li>
+ <li><a href="/load/komedii/8">Комедии</a></li>
+ <li><a href="/load/kriminalnye/9">Криминальные</a></li>
+ <li><a href="/load/melodramy/10">Мелодрамы</a></li>
+ <li><a href="/load/multfilmy/42">Мультфильмы</a></li>
+ <li><a href="/load/mjuzikly/12">Мюзиклы</a></li>
+ <li><a href="/load/prikljuchenija/13">Приключения</a></li>
+ <li><a href="/load/semejnye/14">Семейные</a></li>
+ <li><a href="/load/sportivnye/15">Спортивные</a></li>
+ <li><a href="/load/trillery/16">Триллеры</a></li>
+ <li><a href="/load/uzhasy/17">Ужасы</a></li>
+ <li><a href="/load/fantastika/18">Фантастика</a></li>
+ <li><a href="/load/fehntezi/19">Фэнтези</a></li>
+ <li><a href="/load/biografija/31">Биография</a></li>
+ <li><a href="/load/48">Скоро в кино</a></li>
+ <li><a href="/podborki_filmov">Подборки</a></li>
+ <li><a href="/top_100_luchshikh_filmov">ТОП-100</a></li> 
+ <li><a href="http://kino-fs.me/load/filmy/dramy/viking_2016/6-1-0-705"><i class="fas fa-random"></i> Случайный фильм</a></li> 
+ </ul>
+ <div class="show-bigmenu" id="show-bigmenu"><i class="fas fa-bars"></i>Меню</div>
+ </nav>
+
+ <div class="line">
+  
+ <a class="add-fav" href="#" onclick="alert('Нажмите комбинацию клавиш Ctrl+D, чтобы добавить страницу в закладки'); return false;"><i class="fas fa-star"></i> <span>Добавить в закладки</span></a>
+  
+ <div class="speedbar nowrap"><i class="fas fa-arrow-right"></i> 
+ <span id="speedbar">Смотреть фильмы и сериалы онлайн в хорошем качестве HD 720</span> 
+ </div>
+ </div>
+
+<div class="content clearfix">
+	<aside class="col-sidebar">
+
+		<div class="recomended">
+			<p>Рекомендуемые</p>
+			<div class="items">
+				<div class="item">
+					<img src="img/1.jpg" alt="">
+					<a class="desc" href="watch.html">Патруль (2012)</a>
+				</div>
+
+				<div class="item">
+					<img src="img/1.jpg" alt="">
+					<a class="desc" href="watch.html">Патруль (2012)</a>
+				</div>
+
+				<div class="item">
+					<img src="img/1.jpg" alt="">
+					<a class="desc" href="watch.html">Патруль (2012)</a>
+				</div>
+
+				<div class="item">
+					<img src="img/1.jpg" alt="">
+					<a class="desc" href="watch.html">Патруль (2012)</a>
+				</div>
+		</div>
+	</div>
+
+		<div class="recomended">
+			<p>Скоро появятся</p>
+			<div class="items">
+				<div class="item">
+					<img src="img/1.jpg" alt="">
+					<a class="desc">Патруль (2012)</a>
+				</div>
+				<div class="item">
+					<img src="img/1.jpg" alt="">
+					<a class="desc">Патруль (2012)</a>
+				</div>
+			</div>
+		</div>
+
+
+	</aside>
+
+
+	<div class="col-content">
+		<div class="section flex">
+			<div class="col-left">
+				<div class="img-box m-img"><img src="img/1.jpg" alt=""></div>
+				<div class="m-info">
+					<div class="mi-item clearfix">
+						<div class="mi-label">Качество:</div>
+						<div class="mi-desc"><span class="quality">TS</span></div> 
+					</div>
+
+
+					<div class="mi-item clearfix">
+						<div class="mi-label">Год:</div>
+						<div class="mi-desc" itemprop="copyrightYear">2019</div>
+					</div>
+
+<div class="mi-item clearfix">
+<div class="mi-label">Страна:</div>
+<div class="mi-desc">США</div>
+</div>
+
+
+<div class="mi-item clearfix">
+<div class="mi-label">Время:</div>
+<div class="mi-desc" itemprop="duration">02:45:42</div>
+</div>
+
+
+<div class="mi-item clearfix">
+<div class="mi-label">Жанр:</div>
+<div class="mi-desc"><span id="cats_list">
+<a href="/load/18"><span itemprop="genre">фантастика</span>,</a>
+<a href="/load/2"><span itemprop="genre">боевик</span>,</a>
+<a href="/load/13"><span itemprop="genre">приключения</span>,</a>
+<a href="/load/19"><span itemprop="genre">фэнтези</span></a>
+</span>
+</div>
+</div>
+
+<div class="mi-item clearfix">
+<div class="mi-label">Перевод:</div>
+<div class="mi-desc">Профессиональный (многоголосый)</div>
+</div>
+
+
+<div class="mi-item clearfix">
+<div class="mi-label">В ролях:</div>
+<div class="mi-desc" itemprop="actor"><noindex><a href="/search/%D0%9F%D0%BE%D0%BB%20%D0%A0%D0%B0%D0%B4%D0%B4/" rel="nofollow" class="eTag">Пол Радд</a>, <a href="/search/%D0%9A%D1%80%D0%B8%D1%81%20%D0%AD%D0%B2%D0%B0%D0%BD%D1%81/" rel="nofollow" class="eTag">Крис Эванс</a>, <a href="/search/%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82%20%D0%94%D0%B0%D1%83%D0%BD%D0%B8%20%D0%BC%D0%BB./" rel="nofollow" class="eTag">Роберт Дауни мл.</a>, <a href="/search/%D0%A1%D0%BA%D0%B0%D1%80%D0%BB%D0%B5%D1%82%D1%82%20%D0%99%D0%BE%D1%85%D0%B0%D0%BD%D1%81%D1%81%D0%BE%D0%BD/" rel="nofollow" class="eTag">Скарлетт Йоханссон</a>, <a href="/search/%D0%9A%D1%80%D0%B8%D1%81%20%D0%A5%D0%B5%D0%BC%D1%81%D0%B2%D0%BE%D1%80%D1%82/" rel="nofollow" class="eTag">Крис Хемсворт</a>, <a href="/search/%D0%91%D1%80%D1%8D%D0%B4%D0%BB%D0%B8%20%D0%9A%D1%83%D0%BF%D0%B5%D1%80/" rel="nofollow" class="eTag">Брэдли Купер</a>, <a href="/search/%D0%91%D1%80%D0%B8%20%D0%9B%D0%B0%D1%80%D1%81%D0%BE%D0%BD/" rel="nofollow" class="eTag">Бри Ларсон</a></noindex></div>
+</div>
+
+
+<div class="mi-item clearfix">
+<div class="mi-label">Режиссер:</div>
+<div class="mi-desc" itemprop="director">Энтони Руссо, Джо Руссо</div> 
+</div>
+
+
+
+
+
+
+
+
+
+
+				</div>
+			</div>
+
+
+
+			<div class="col-right">
+				<h1>Мстители: Финал (2019)</h1>
+				<h4>Avengers: Endgame</h4>
+				<br>
+				<p>
+Битва за существование человеческой цивилизации походит к концу. Противоборствующие стороны отлично понимают, что в этот раз должны поставить точку в извечном соревновании. В живых должен остаться только один. Списки команды Мстителей значительно поредели, в них осталось не так много членов. Приходится привлекать всех возможных союзников и составлять план противодействия могущественному Таносу. Титану удается завладеть древним артефактом, который может стать серьезной проблемой для противника. </p><p> Целеустремленный и коварный злодей отлично понимает, что Перчатка Бесконечности поможет ему осуществить все планы и уничтожить врагов. Мощный предмет справится с любым препятствием, силы Мстителей уступают ему. Герои не собираются сдаваться, они разрабатывают детали, отлично понимая, что не имеют права отступать. Глобальная катастрофа может полностью уничтожить человечество. Шансов на возрождение больше не будет.</p>
+
+
+
+
+			</div>
+		</div>
+
+<div class="section watch">
+	<h2>СМОТРЕТЬ ОНЛАЙН МСТИТЕЛИ: ФИНАЛ (2019) В ХОРОШЕМ КАЧЕСТВЕ</h2>
+	<div class="player-section">
+		<ul class="tabs nowrap"> 
+			<li class="playli current">Смотреть онлайн</li>
+			<li class="playli">Трейлер</li>
+			<a href="javascript://" onclick="trane73.report()" class="tabs">Жалоба?</a> 
+		</ul>
+		<div class="player-box visible">
+<!-- <video
+
+    id="my-player"
+    class="video-js vjs-big-play-centered"
+    controls
+    preload="auto"
+    poster="//vjs.zencdn.net/v/oceans.png"
+    data-setup='{}'>
+  <source src="http://185.38.12.60/sec/1557105791/32353633acc824c08c4ebbd159fc2d46b4e8a47b2db86fe3/ivs/94/29/c93ac8ce1d27/480.mp4" type="video/mp4"></source>
+  <p class="vjs-no-js">
+    To view this video please enable JavaScript, and consider upgrading to a
+    web browser that
+    <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video
+    </a>
+  </p>
+</video> -->
+<!-- <video src="https://www.youtube.com/watch&v=b3s2-D4QN0M" type="video/webm" controls></video>  -->
+</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div></div>
+
+<script type="text/javascript" src="video/video.min.js"></script>
+</body>
+</html>

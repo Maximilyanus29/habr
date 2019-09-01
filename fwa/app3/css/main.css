@@ -44,7 +44,7 @@ header {
             align-items: center;
     color: #9da1a3;
     height: 100%; }
-  header .logo {
+  header .logo a {
     font-family: 'Bitter', serif;
     font-weight: 800;
     color: #323436;
@@ -69,7 +69,10 @@ header {
   bottom: 0;
   overflow-y: auto;
   background-color: white;
-  width: 72%; }
+  width: 72%;
+  -webkit-transition: 5s;
+  -o-transition: 5s;
+  transition: 5s; }
   .hidden-menu a {
     width: 100%;
     display: block; }

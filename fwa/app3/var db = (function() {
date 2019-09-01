@@ -1,0 +1,763 @@
+﻿var db = (function() {
+	// @TODO РєРѕРЅС„РёРіРѕРІ Р±СѓРґРµС‚ РЅРµСЃРєРѕР»СЊРєРѕ РґР»СЏ РєР°Р¶РґРѕРіРѕ Р°РєРєР°СѓРЅС‚Р°, СЃРµР№С‡Р°СЃ С‚РѕР»СЊРєРѕ РѕРґРёРЅ
+	var INITIAL_KEY = 'default';
+	var MULTIAUTH_KEY = 'multiauth';
+	var dbOpen = function() {
+		return new Promise(function(resolve, reject) {
+			var request = indexedDB.open('sw.push.mail.ru', 2);
+
+			request.addEventListener('upgradeneeded', function(event) {
+
+				var db = event.target.result;
+				var store, keyIndex;
+
+				if (event.oldVersion === 0) {
+					store = db.createObjectStore('configs', {
+						keyPath: 'account'
+					});
+					keyIndex = store.createIndex('by_account', 'account', {
+						unique: true
+					});
+
+					store = db.createObjectStore('accounts', {
+						keyPath: 'account'
+					});
+					keyIndex = store.createIndex('by_account', 'account', {
+						unique: true
+					});
+				}
+
+				if (event.oldVersion <= 2) {
+					store = db.createObjectStore('versions', {
+						keyPath: 'account'
+					});
+					keyIndex = store.createIndex('by_account', 'account', {
+						unique: true
+					});
+				}
+			});
+
+			request.onsuccess = function(event) {
+				resolve(event.target.result);
+			};
+		});
+	};
+
+	var getConfig = function() {
+		return new Promise(function(resolve, reject) {
+
+			dbOpen().then(function(db) {
+				var tx = db.transaction("configs", "readonly");
+				var store = tx.objectStore("configs");
+
+				var request = store.get(INITIAL_KEY);
+				request.onerror = reject;
+				request.onsuccess = function(event) {
+					if (request.result) {
+						resolve(request.result);
+					} else {
+						reject();
+					}
+				};
+			}, reject);
+
+		});
+	};
+
+	var setConfig = function(body) {
+		return new Promise(function(resolve, reject) {
+
+			dbOpen().then(function(db) {
+				var tx = db.transaction("configs", "readwrite");
+				var store = tx.objectStore("configs");
+
+				body.account = INITIAL_KEY;
+				var request = store.put(body);
+				request.onsuccess = resolve;
+				request.onerror = reject;
+			}, reject);
+
+		});
+	};
+
+	var getActiveAccount = function(type) {
+		return new Promise(function(resolve, reject) {
+
+			dbOpen().then(function(db) {
+				var tx = db.transaction("accounts", "readonly");
+				var store = tx.objectStore("accounts");
+
+				var request = store.get(type);
+				request.onerror = reject;
+				request.onsuccess = function(event) {
+					if (request.result) {
+						if (type === MULTIAUTH_KEY) {
+							request.result.email = request.result.email.split(',');
+						}
+						resolve(request.result);
+					} else {
+						reject();
+					}
+				};
+			}, reject);
+
+		});
+	};
+
+	var setActiveAccount = function(type, account) {
+		return new Promise(function(resolve, reject) {
+
+			dbOpen().then(function(db) {
+				var tx = db.transaction("accounts", "readwrite");
+				var store = tx.objectStore("accounts");
+				var email = account.email;
+				if (type === MULTIAUTH_KEY) {
+					email = account.email.join(',');
+				}
+				var body = {
+					account: type,
+					email: email,
+					last_modified: parseInt(account.last_modified, 10) || 0
+				};
+				var request = store.put(body);
+				request.onsuccess = resolve;
+				request.onerror = reject;
+			}, reject);
+
+		});
+	};
+
+	var getVersion = function() {
+		return new Promise(function(resolve, reject) {
+
+			dbOpen().then(function(db) {
+				var tx = db.transaction("versions", "readonly");
+				var store = tx.objectStore("versions");
+
+				var request = store.get(INITIAL_KEY);
+				request.onerror = reject;
+				request.onsuccess = function(event) {
+					if (event.returnValue) {
+						var version = request.result ? request.result.version : 0;
+
+						resolve(version);
+					} else {
+						reject();
+					}
+				};
+			}, reject);
+
+		});
+	};
+
+	var setVersion = function(version) {
+		return new Promise(function(resolve, reject) {
+
+			dbOpen().then(function(db) {
+				var tx = db.transaction("versions", "readwrite");
+				var store = tx.objectStore("versions");
+				var body = {
+					account: INITIAL_KEY,
+					version: version
+				};
+
+				var request = store.put(body);
+				request.onsuccess = resolve;
+				request.onerror = reject;
+			}, reject);
+
+		});
+	};
+
+	return {
+		config: function(config) {
+			return config ? setConfig(config) : getConfig();
+		},
+		account: function(account) {
+			return account ? setActiveAccount(INITIAL_KEY, account) : getActiveAccount(INITIAL_KEY);
+		},
+		multiauth: function(accounts) {
+			return accounts ? setActiveAccount(MULTIAUTH_KEY, accounts) : getActiveAccount(MULTIAUTH_KEY);
+		},
+		version: function(v) {
+			return typeof v !== 'undefined' ? setVersion(v) : getVersion();
+		}
+	};
+})();
+
+var plural = function(num, arr, key) {
+	var x = ((num % 100 <= 10) || (num % 100 >= 20)) ? num % 10 : 0;
+	var l = arr.length || 3;
+
+	if (l == 2 && x == 1) x = 0;
+	else if (l == 3 && x > 1) {
+		x = x < 5 ? 2 : 0;
+	}
+
+	var str = (arr[x] || arr[(x > 1 && x < 5) ? x : 0] || arr[x > 1 ? 1 : 0]);
+
+	return str.replace(new RegExp('\\{' + key + '\\}', 'g'), num);
+};
+
+// РўРµРєСѓС‰Р°СЏ РїРѕРґРїРёСЃРєР°
+var getSubscriptionId = function() {
+	return new Promise(function(resolve, reject) {
+
+		self.registration.pushManager.getSubscription().then(function(subscription) {
+			if (subscription && subscription.endpoint) {
+				var id = subscription.endpoint.match(/.*\/(.*)/)[1];
+				if (id) {
+					resolve(id);
+				} else {
+					reject('SubscriptionId err');
+				}
+			} else {
+				reject('SubscriptionId null');
+			}
+		}, reject);
+
+	});
+};
+
+var versionDBActivity = function(config) {
+	if (config) {
+		db.version().then(function(version) {
+			if (config.counter_push_version) {
+				for (var j in config.counter_push_version) {
+					if (config.counter_push_version[j]) {
+						fetch(config.counter_push_version[j].replace('{version}', version), {
+							mode: "no-cors"
+						});
+					}
+				}
+			}
+		});
+	} else {
+		fetch('https://stat.radar.imgsmail.ru/update?p=mail&t=pushnotification&v=12&i=all:1,config_fail:2', {
+			mode: "no-cors"
+		});
+	}
+};
+
+// РђРєС‚РёРІР°С†РёСЏ
+self.addEventListener('install', function(event) {
+	event.waitUntil(self.skipWaiting());
+});
+self.addEventListener('activate', function(event) {
+	event.waitUntil(
+		db.multiauth().then(function() {
+			return self.clients.claim();
+		}, function(err) {
+			if (typeof err === 'undefined') {
+				return db.account().then(function(account) {
+					if (account && account.email) {
+						return db.multiauth({
+							email: [account.email],
+							last_modified: account.last_modified
+						});
+					}
+				});
+			}
+		}).then(function() {
+			return self.clients.claim();
+		}, function() {
+			return self.clients.claim();
+		})
+	);
+});
+
+// РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ
+self.addEventListener('message', function(message) {
+	var data = JSON.parse(message.data);
+	if (data && (data.type == 'pushManagerConfig') && (typeof data.body == 'object')) {
+		db.config(data.body);
+	} else if (data && (data.type == 'pushManagerAccount') && (typeof data.body == 'string')) {
+		db.account({
+			email: data.body,
+			last_modified: 0
+		});
+	} else if (data && (data.type == 'pushManagerAccounts') && (typeof data.body == 'object')) {
+		db.multiauth({
+			email: data.body,
+			last_modified: 0
+		});
+	} else if (data && (data.type == 'pushManagerMigrate1') && (typeof data.body == 'string')) {
+		db.account().then(null, function() {
+			// Р”РѕР±Р°РІР»СЏРµРј С‚РµРєСѓС‰РёР№ Р°РєРєР°СѓРЅС‚ С‚РѕР»СЊРєРѕ РµСЃР»Рё РµРіРѕ РЅРµС‚
+			db.account({
+				email: data.body,
+				last_modified: 0
+			});
+		});
+	} else if (data && data.type == 'pushManagerMigrate' && data.body) {
+		db.version().then(function(v) {
+			if (data.body.version > v) {
+				message.source.postMessage(JSON.stringify({
+					type: 'needPushManagerMigrate',
+					body: {
+						from: v,
+						to: data.body.version
+					}
+				}));
+				fetch('https://stat.radar.imgsmail.ru/update?p=mail&t=pushnotification&v=12&i=all:1,migrate_start:2', {
+					mode: "no-cors"
+				});
+			}
+		});
+		fetch('https://stat.radar.imgsmail.ru/update?p=mail&t=pushnotification&v=12&i=all:1,migrate_init:2', {
+			mode: "no-cors"
+		});
+	} else if (data && data.type == 'donePushManagerMigrate' && data.body) {
+		db.version().then(function(v) {
+			if (data.body.to > v) {
+				db.version(data.body.to);
+			}
+		});
+		fetch('https://stat.radar.imgsmail.ru/update?p=mail&t=pushnotification&v=12&i=all:1,migrate_done:2', {
+			mode: "no-cors"
+		});
+	} else if (data && data.type == 'failPushManagerMigrate' && data.body) {
+		fetch('https://stat.radar.imgsmail.ru/update?p=mail&t=pushnotification&v=12&i=all:1,migrate_fail:2', {
+			mode: "no-cors"
+		});
+	}
+});
+
+// Р РµР°РєС†РёСЏ РЅР° РєР»РёРє РїРѕ СѓРІРµРґРѕРјР»РµРЅРёСЋ
+self.addEventListener('notificationclick', function(event) {
+	event.waitUntil(
+		db.config()
+		.then(function(config) {
+			return self.clients.matchAll({
+				includeUncontrolled: false,
+				type: 'window'
+			}).then(function(clients) {
+				if (config.counter_push_click) {
+					for (var j in config.counter_push_click) {
+						if (config.counter_push_click[j]) {
+							fetch(config.counter_push_click[j], {
+								mode: "no-cors"
+							});
+						}
+					}
+				}
+				versionDBActivity(config);
+
+				/**
+				 * Р•СЃР»Рё РІ data СѓРІРµРґРѕРјР»РµРЅРёСЏ РїРµСЂРµРґР°РЅС‹ id РїРёСЃСЊРјР° Рё С‚СЂРµРґР° СЃРѕС…СЂР°РЅСЏРµРј, РїСЂРёРіРѕРґСЏС‚СЃСЏ :)
+				 */
+				var folderId = null;
+				var letterId = null;
+				var threadId = null;
+				var email = null;
+				if (event && event.notification && event.notification.data) {
+					folderId = event.notification.data.folderId || null;
+					letterId = event.notification.data.letterId || null;
+					threadId = event.notification.data.threadId || null;
+					email = event.notification.data.email || null;
+				}
+
+				/**
+				 * РџС‹С‚Р°РµРјСЃСЏ РЅР°Р№С‚Рё РІРєР»Р°РґРєСѓ СЃ РѕС‚РєСЂС‹С‚С‹Рј СЃРїРёСЃРєРѕРј РїРёСЃРµРј
+				 */
+				var goodClient = null;
+				var potentialClients = [];
+				var i = clients.length - 1;
+				while (i >= 0 && !goodClient) {
+					var client = clients[i];
+					if (client.url.match('/messages')) {
+						if (!email) {
+							goodClient = client;
+						} else if (client.url.match(email)) {
+							goodClient = client;
+						} else {
+							potentialClients.push(client);
+						}
+					}
+					i--;
+				}
+
+				var focusToClient = function(client) {
+
+					var action = null;
+					if (email && (letterId || threadId)) {
+						action = {
+							type: 'show-letter',
+							foder: folderId || 0,
+							letter: letterId,
+							thread: threadId
+						};
+					}
+					client.postMessage(JSON.stringify({
+						type: 'focus',
+						email: email,
+						action: action
+					}));
+
+					return client.focus();
+				};
+
+				if (goodClient) {
+					/**
+					 * Р•СЃР»Рё СѓРґР°Р»РѕСЃСЊ РЅР°Р№С‚Рё РїРѕРґС…РѕРґСЏС‰СѓСЋ РІРєР»Р°РґРєСѓ СЃРёРЅС…СЂРѕРЅРЅРѕ, С‚Рѕ РІСЃРµ С…РѕСЂРѕС€Рѕ
+					 */
+					focusToClient(goodClient);
+				} else {
+					/**
+					 * Р§С‚РѕР¶, РЅР°Р№С‚Рё РІРєР»Р°РґРєСѓ РїСЂРѕСЃС‚Рѕ РЅРµ СѓРґР°Р»РѕСЃСЊ, РёС‰РµРј СЃР»РѕР¶РЅРѕ
+					 * РЎРїСЂР°С€РёРІР°РµРј Сѓ РІРєР»Р°РґРѕРє РІ РєР°РєРѕР№ РёР· РЅРёС… Р°РІС‚РѕСЂРёР·РѕРІР°РЅ РЅСѓР¶РЅС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ, Р¶РґРµРј РЅРµ Р±РѕР»СЊС€Рµ СЃРµРєСѓРЅРґС‹
+					 * Р•СЃР»Рё РєР°РєР°СЏ С‚Рѕ РёР· РІРєР»Р°РґРѕРє РїРѕРґРѕР№РґРµС‚, СЂР°РґРѕСЃС‚СЊ, РёРЅР°С‡Рµ РѕС‚РєСЂРѕРµРј РЅРѕРІСѓСЋ РІРєР»Р°РґРєСѓ
+					 */
+
+					return new Promise(function(resolve, reject) {
+						var client = null;
+						var messageListener = function(message) {
+							if (message && message.data) {
+								try {
+									var data = JSON.parse(message.data);
+									if (data.type === 'pong') {
+										clearTimeout(rejectTimeout);
+										self.removeEventListener('message', messageListener);
+										resolve(message.source);
+									}
+								} catch (ex) {
+
+								}
+							}
+						};
+						self.addEventListener('message', messageListener);
+						var rejectTimeout = setTimeout(function() {
+							self.removeEventListener('message', messageListener);
+							reject();
+						}, 1000);
+						for (var i = 0; i < potentialClients.length; i++) {
+							client = potentialClients[i];
+							client.postMessage(JSON.stringify({
+								email: email,
+								type: 'ping'
+							}));
+						}
+					}).then(focusToClient, function() {
+						var url = '/messages/';
+
+						if (threadId) {
+							url = '/thread/' + threadId + '/';
+						} else if (letterId) {
+							url = '/message/' + letterId + '/';
+						}
+
+						if (email) {
+							url += '?x-email=' + decodeURIComponent(email);
+						}
+						self.clients.openWindow(self.location.origin + url);
+					});
+				}
+			}, function() {
+				self.clients.openWindow(self.location.origin + '/messages/');
+			});
+		})
+	);
+
+	event.notification.close();
+});
+
+var getLastDataFromServer = function(accounts, subscriptionId) {
+	var requests = [];
+	var emails = accounts.email;
+	for (var i = 0; i < emails.length; i++) {
+		var email = emails[i];
+		/**
+		 * Р—Р°РїСЂР°С€РёРІР°РµРј РёР·РјРµРЅРµРЅРёСЏ РґР»СЏ Р°РєРєР°СѓРЅС‚Р°
+		 */
+		var _fetchBody = {
+			email: email,
+			last_modified: accounts.last_modified || 0,
+			subscription_id: subscriptionId,
+			htmlencoded: false
+		};
+
+		var _body = [];
+		for (var j in _fetchBody) {
+			_body.push(j + '=' + encodeURIComponent(_fetchBody[j]));
+		}
+
+		requests.push(fetch('/api/v1/messages/pushnotifications', {
+			method: 'post',
+			body: _body.join('&')
+		}));
+	}
+
+	return Promise.all(requests)
+		.then(function(data) {
+			/**
+			 * Р”РѕР¶РёРґР°РµРјСЃСЏ РІСЃРµС… РґР°РЅРЅС‹С…
+			 */
+			var jsons = [];
+			for (var i = 0; i < data.length; i++) {
+				jsons.push(data[i].json());
+			}
+			return Promise.all(jsons);
+		})
+		.then(function(data) {
+			/**
+			 * Р’С‹Р±РёСЂР°РµРј СЃР°РјС‹Р№ РїРѕРґС…РѕРґСЏС‰РёР№ РѕС‚РІРµС‚ (РёС‰РµРј СЃР°РјРѕРµ РїРѕСЃР»РµРґРЅРµРµ РїРёСЃСЊРјРѕ)
+			 */
+			var last = null;
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].status == '200' && data[i].body && data[i].body.last_message) {
+					if (!last) {
+						last = data[i];
+					}
+					if (last.body.last_message.date < data[i].body.last_message.date) {
+						last = data[i];
+					}
+				}
+			}
+
+			return last;
+		});
+};
+
+var parseSender = function(sender) {
+	var from = {
+		name: '',
+		email: ''
+	};
+	if (typeof sender === 'string') {
+		var splittedFrom = sender.split(/((.*)\s)?\<?(.*)\>/);
+		if (splittedFrom.length === 5) {
+			from.name = splittedFrom[2];
+			from.email = splittedFrom[3];
+		} else {
+			from.email = splittedFrom[0];
+		}
+	}
+
+	return from;
+};
+var lastMessageToPushDataFormat = function(lastData) {
+	// РњРµС‚РѕРґ РґРѕСЃС‚Р°Р»СЃСЏ РІ РЅР°СЃР»РµРґСЃС‚РІРѕ РєРѕРіРґР° РІ РїСѓС€Р°С… РЅРµР±С‹Р»Рѕ РґР°РЅРЅС‹С…
+	var message = lastData.body.last_message;
+	var thread_id = message.thread_id;
+	if (typeof thread_id === 'string') {
+		thread_id = thread_id.split(':')[1];
+	}
+	var sender = '';
+	if (message.correspondents && message.correspondents.from && message.correspondents.from[0]) {
+		var from0 = message.correspondents.from[0];
+		if (from0.name) {
+			sender = from0.name + ' ';
+		}
+		sender += '<' + from0.email + '>';
+	}
+	var pushData = {
+		'account': lastData.email,
+		'counter': 0,
+		'counter_account': 0,
+		'event': 4,
+		'folder_id': message.folder,
+		'has_attachment': message.flags && message.flags.attach ? 1 : 0,
+		'id': message.id,
+		'importance': message.priority === 1 ? 1 : 0,
+		'recipient_cnt': message.correspondents && message.correspondents.from ? message.correspondents.from.length : 0,
+		'sender': sender,
+		'snippet': message.snippet || '',
+		'text': message.subject,
+		'thread_id': thread_id,
+		'thread_id_mm': 0
+	};
+
+	return pushData;
+}
+
+var fillBodyPush = function(title, body, message, config) {
+	var _fromText = '';
+	var icoBull = 'вЂў';
+	var icoAttachment = 'рџ“Ћ';
+	var wuBody = [];
+
+	if (message.sender) {
+		var _from = parseSender(message.sender);
+
+		// РћС‚: v.pupkin@mail.ru
+		_fromText = _from.name ? _from.name : _from.email;
+		title = _fromText;
+		body.icon = 'https://filin.mail.ru/pic?user=' + message.account + '&email=' + _from.email + '&width=90&height=90';
+	}
+
+	var subject = message.text || config.push_empty_subject;
+	if (message.has_attachment) {
+		subject = icoAttachment + ' ' + subject;
+	}
+	wuBody.push(subject);
+	wuBody.push(icoBull);
+	wuBody.push(message.snippet);
+
+	body.body = wuBody.join(' ');
+
+	// v.pupkin@mail.ru / <Р‘РµР· С‚РµРјС‹> / Foo Bar Baz...
+	body.data.description = [([(_fromText ? _fromText + ' ' + icoBull : ''), subject, icoBull, message.snippet].join(' ')).substring(0, 35)];
+
+	body.tag = message.account;
+
+	body.data.email = message.account;
+	body.data.folderId = message.folder_id;
+	body.data.letterId = message.id;
+	if (message.thread_id && message.thread_id !== '0000000000000000') {
+		body.data.threadId = '1:' + message.thread_id + ':' + message.folder_id;
+	}
+
+	return title;
+};
+
+var mergeWithShowedNotifications = function(pushBody, message, config) {
+	return self.registration.getNotifications({
+		tag: pushBody.tag
+	}).then(function(notifications) {
+		if (notifications.length !== 0) {
+			var lastNotif = notifications[notifications.length - 1];
+			var count = (lastNotif.data && lastNotif.data.count) ? lastNotif.data.count : 0;
+
+			for (var i = 0; i < notifications.length; i++) {
+				notifications[i].close();
+			}
+
+			var wuBody = [];
+			if (count && config.push_body_plural) {
+				pushBody.data.count = count;
+				title = plural(count + 1, config.push_body_plural, 'count');
+
+				// РљРѕРјСѓ: v.pupkin@mail.ru
+				var from = parseSender(message.sender);
+				if (from.email) {
+					// РћС‚: v.pupkin@mail.ru
+					pushBody.icon = 'https://filin.mail.ru/pic?user=' + message.account + '&email=' + from.email + '&width=90&height=90';
+				} else {
+					pushBody.icon = config.push_icon;
+				}
+
+				wuBody.push(pushBody.data.description[0]);
+				for (i = 0; i < lastNotif.data.description.length; i++) {
+					pushBody.data.description.push(lastNotif.data.description[i]);
+					wuBody.push(lastNotif.data.description[i]);
+				}
+				pushBody.body = wuBody.join('\n');
+			}
+		}
+	});
+};
+
+var onPush = function(event) {
+	/**
+	 * РџСѓС€ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, РІ РёРґРµР°Р»Рµ РЅРµ Р±СѓРґРµС‚ РїРѕРєР°Р·Р°РЅ РЅРёРєРѕРіРґР°
+	 */
+	var title = 'РџРѕС‡С‚Р° Mail.Ru';
+	var body = {
+		body: 'Р’Р°Рј РїСЂРёС€Р»Рѕ РЅРѕРІРѕРµ РїРёСЃСЊРјРѕ',
+		icon: 'https://img.imgsmail.ru/r/default/ico/icon-192.png',
+		tag: 'push-notification',
+		data: {
+			count: 0
+		}
+	};
+
+	/**
+	 * РќР°СЃС‚СЂРѕР№РєРё РїСѓС€РµР№, РјРѕР¶РµС‚ Р±С‹С‚СЊ undefined
+	 */
+	var config;
+
+	var showPush = function() {
+		if (typeof config != 'undefined' && config.counter_push_show) {
+			for (var i in config.counter_push_show) {
+				if (config.counter_push_show[i]) {
+					fetch(config.counter_push_show[i], {
+						mode: "no-cors"
+					});
+				}
+			}
+		}
+		versionDBActivity(config);
+
+		body.data.count++;
+
+		return self.registration.showNotification(title, body);
+	};
+
+	event.waitUntil(
+		Promise.all([getSubscriptionId(), db.config(), db.multiauth()])
+		.then(function(all) {
+			var subscriptionId = all[0];
+			config = all[1];
+			var multiauth = all[2];
+
+			title = config.push_title;
+			body = {
+				body: config.push_body,
+				icon: config.push_icon,
+				tag: 'push-notification',
+				data: {
+					count: 0
+				}
+			};
+
+			var pushData = null;
+			try {
+				pushData = event.data.json();
+			} catch (ex) {
+				pushData = null;
+			}
+			if (pushData) {
+				title = fillBodyPush(title, body, pushData, config);
+
+				db.multiauth({
+					email: multiauth.email,
+					last_modified: (new Date() / 1000) | 0
+				});
+
+				return mergeWithShowedNotifications(body, pushData, config);
+			} else {
+				/**
+				 * Р›РµРіР°СЃРё РєРѕРґ, С‚РµРїРµСЂСЊ РµСЃС‚СЊ РґР°РЅРЅС‹Рµ РІ РїСѓС€Р°С… Рё СЌС‚РѕС‚ РєРѕРґ РЅРµ Р°РєС‚СѓР°Р»РµРЅ.
+				 * Р‘СѓРґРµС‚ РІС‹РїРёР»РµРЅ!
+				 */
+
+				/**
+				 * Р›РѕРіРёРєР° РїРѕРєР°Р·Р° СѓРІРµРґРѕРјР»РµРЅРёР№:
+				 * РЎРЅР°С‡Р°Р»Р° РёРґРµРј РЅР° СЃРµСЂРІРµСЂ Рё РїРѕР»СѓС‡Р°РµРј РїРѕСЃР»РµРґРЅРµРµ РїРёСЃСЊРјРѕ РґР»СЏ РІСЃРµС… РїРѕРґРїРёСЃР°РЅРЅС‹С… Р°РєРєР°РЅС‚РѕРІ
+				 * РР· РЅРёС… РІС‹Р±РёСЂР°РµРј СЃР°РјРѕРµ РЅРѕРІРѕРµ, РµРіРѕ СЃС‡РёС‚Р°РµРј РѕСЃРЅРѕРІРЅС‹Рј
+				 * Р—Р°РїСЂР°С€РёРІР°РµРј РІСЃРµ СѓРІРµРґРѕРјР»РµРЅРёСЏ РїРѕ С‚РµРіСѓ (email РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ)
+				 * Р•СЃР»Рё СѓРІРµРґРѕРјР»РµРЅРёРµ (РµРіРѕ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ РѕРґРЅРѕРіРѕ РґР»СЏ РѕРґРЅРѕРіРѕ С‚РµРіР°) РµСЃС‚СЊ С‚РѕРіРґР°
+				 * * Р”РѕР±Р°РІР»СЏРµРј РІ РјР°СЃСЃРёРІ РїРѕСЃР»РµРґРЅРёС… РїРёСЃРµРј РїСЂРёС€РµРґС€РµРµ РїРёСЃСЊРјРѕ, Р·Р°РєСЂС‹РІР°РµРј С‚РµРєСѓС‰РёР№ Рё РїРѕРєР°Р·С‹РІР°РµРј РЅРѕРІС‹Р№
+				 * Р•СЃР»Рё СѓРІРµРґРѕРјР»РµРЅРёР№ РЅРµС‚
+				 * * РџРѕРєР°Р·С‹РІР°РµРј СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РїСѓС€
+				 *
+				 * Р•СЃР»Рё РґР°РЅРЅС‹С… РЅРµС‚ "last_message == null" РїРѕРєР°Р·С‹РІР°РµРј РґРµС„РѕР»С‚РЅС‹Р№ РїСѓС€
+				 * Р•СЃР»Рё СЃР»СѓС‡РёР»Р°СЃСЊ РѕС€РёР±РєР° РЅР° Р»СЋР±РѕРј РёР· С€Р°РіРѕРІ РїРѕРєР°Р·С‹РІР°РµРј СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РїСѓС€
+				 */
+
+				return getLastDataFromServer(multiauth, subscriptionId)
+					.then(function(lastData) {
+						if (lastData && lastData.body && lastData.body.last_message) {
+							// Р•СЃР»Рё РµСЃС‚СЊ РґР°РЅРЅС‹Рµ РїРѕ РїРѕСЃР»РµРґРЅРµРјСѓ РїРёСЃСЊРјСѓ
+							var message = lastMessageToPushDataFormat(lastData);
+
+							title = fillBodyPush(title, body, message, config);
+
+							db.multiauth({
+								email: multiauth.email,
+								last_modified: lastData.body.timestamp
+							});
+
+							return mergeWithShowedNotifications(body, message, config);
+						} else {
+							return Promise.reject(new Error('Push notifications no data'));
+						}
+					});
+			}
+		})
+		.then(showPush, showPush)
+	);
+};
+
+// РЈРІРµРґРѕРјР»РµРЅРёСЏ
+self.addEventListener('push', onPush);
