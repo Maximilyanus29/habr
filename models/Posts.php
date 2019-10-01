@@ -82,8 +82,20 @@ class Posts extends \yii\db\ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'owned_by_user']);
     }
 
-    public function getDate()
-    {
+
+
+
+    public function newPost($arr){
+        $this->h1='saas';
+        $this->pageText=$arr['text'];
+        $this->description='saass';
+        $this->in_category=$arr['product_category'];
+        $this->owned_by_user=$arr['username'];
+        $this->count_view=0;
+        $this->count_bookmarked=0;
+        $this->rating=0;
+        $this->date='NOW()';
+        $this->save();
 
     }
 

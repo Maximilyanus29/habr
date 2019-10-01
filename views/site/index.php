@@ -4,6 +4,7 @@ use yii\helpers\Url;
 
 // Url::to() вызывает UrlManager::createUrl() для создания URL
 use \yii\helpers\Html;
+use yii\widgets\LinkPager;
         ?>
 <section class="content-wrap" id="content-wrap">
 
@@ -32,27 +33,48 @@ use \yii\helpers\Html;
 </div>
 
 
-<?php // var_dump($model);
-foreach ($model as $value):
-    ?>
 
-			<div class="item">
-					<div class="item-top">
-						<a href="#" class="user-avatar-icon"><img src="<?php echo('img'.$value->ownedByUser->img); ?>" alt=""></a>
-						<a href="#" class="user-nickname"><?php echo($value->ownedByUser->name); ?></a>
-						<span><?php echo($value->date); ?></span>
-					</div>
-					<h2 class="item-content-preview"><a href="<?= Url::to(['post/'.$value->id]) ?>"><?php echo($value->h1); ?></a></h2>
-					<div class="item-tags"><a href="#">Tutorial</a></div>
-					<div class="item-counters">
-						<span><i class="fas fa-gem"></i><?= Html::encode($value->rating) ?></span>
-						<span><i class="fas fa-eye"></i><?= Html::encode($value->count_view) ?></span>
-						<span><i class="fas fa-bookmark"></i><?= Html::encode($value->count_bookmarked) ?></span>
-						<span><i class="fas fa-comment-alt"></i><?= Html::encode($value->rating) ?></span>
-					</div>
-			</div>
 
-<?php  endforeach; ?>
 
+
+
+
+
+
+
+
+        <?php
+        foreach ($model as $value): ?>
+
+        			<div class="item">
+        					<div class="item-top">
+        						<a href="#" class="user-avatar-icon"><img src="<?php echo('img'.$value->ownedByUser->img); ?>" alt=""></a>
+        						<a href="#" class="user-nickname"><?php echo($value->ownedByUser->username); ?></a>
+        						<span><?php echo($value->date); ?></span>
+        					</div>
+        					<h2 class="item-content-preview"><a href="<?= Url::to(['post/'.$value->id]) ?>"><?php echo($value->h1); ?></a></h2>
+        					<div class="item-tags"><a href="#">Tutorial</a></div>
+        					<div class="item-counters">
+        						<span><i class="fas fa-gem"></i><?= Html::encode($value->rating) ?></span>
+        						<span><i class="fas fa-eye"></i><?= Html::encode($value->count_view) ?></span>
+        						<span><i class="fas fa-bookmark"></i><?= Html::encode($value->count_bookmarked) ?></span>
+        						<span><i class="fas fa-comment-alt"></i><?= Html::encode($value->rating) ?></span>
+        					</div>
+        			</div>
+
+        <?php  endforeach; ?>
+
+
+
+
+<?php
+
+
+        // отображаем постраничную разбивку
+        echo LinkPager::widget([
+        'pagination' => $pages,
+        ]);
+
+?>
 </section>
 

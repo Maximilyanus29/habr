@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\GetForAllPage;
+use app\models\Category;
 use app\models\LoginForm;
 use app\models\Posts;
 use app\models\Users;
@@ -11,6 +11,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use yii\data\Pagination;
 
 class SiteController extends Controller
 {
@@ -51,6 +52,13 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
+    public function BeforeActions()
+    {
+        var_dump($this);
+    }
+
+
+
     public function actions()
     {
         return [
@@ -69,23 +77,71 @@ class SiteController extends Controller
      *
      * @return string
      */
+//    public function actionIndex()
+//    {
+//
+//        $model = Posts::find()->orderBy('rating DESC')->limit(10)->all();
+//
+//
+//        return $this->render('index',['model'=>$model]);
+//
+//
+//    }
+
     public function actionIndex()
     {
-
-        $model = Posts::find()->orderBy('rating DESC')->limit(10)->all();
-
-
-        return $this->render('index',['model'=>$model]);
+        // выполняем запрос
+//        $query = Posts::find()->where(['owned_by_user' => 11]);
+        $query = Posts::find()->orderBy('rating DESC');
 
 
+        // делаем копию выборки
+        $countQuery = clone $query;
+        // подключаем класс Pagination, выводим по 10 пунктов на страницу
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 10]);
+        // приводим параметры в ссылке к ЧПУ
+        $pages->pageSizeParam = false;
+        $model = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+        // Передаем данные в представление
+        return $this->render('index', [
+            'model' => $model,
+            'pages' => $pages,
+        ]);
     }
+
 
     public function actionAll()
     {
-        $model= Posts::find()->orderBy('date DESC')->limit(10)->all();
-        return $this->render('index',['model'=>$model]);
+        $query = Posts::find()->orderBy('date DESC');
+//        var_dump($query);
+        // делаем копию выборки
+        $countQuery = clone $query;
+        // подключаем класс Pagination, выводим по 10 пунктов на страницу
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+        // приводим параметры в ссылке к ЧПУ
+        $pages->pageSizeParam = false;
+        $model = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+        // Передаем данные в представление
+        return $this->render('index', [
+            'model' => $model,
+            'pages' => $pages,
+        ]);
+
+
+
     }
 
+
+    public function actionCategory($id)
+    {
+
+        $model= Posts::find()->where(['in_category'=>$id])->orderBy('date DESC')->limit(10)->all();
+        return $this->render('index',['model'=>$model]);
+    }
 
     /**
      * Login action.

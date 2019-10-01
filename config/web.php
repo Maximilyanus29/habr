@@ -7,16 +7,23 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+        ]
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+
     'components' => [
         'request' => [
             'baseUrl'=> '',
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'gawfawfaw',
         ],
+
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -57,7 +64,9 @@ $config = [
                 'top' => 'site/top',
                 'about' => 'site/about',
                 'contact' => 'site/contact',
-                'lk'=>'site/login'
+                'lk'=>'site/login',
+                'category/<id:\d+>' =>'site/category',
+//                'admin/1'=>'admin/parse'
 
             ],
         ],

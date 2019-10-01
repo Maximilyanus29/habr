@@ -11,6 +11,18 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
 
+
+
+if (Yii::$app->user->isGuest){
+    $href='login';
+    $userid=null;
+}
+else{
+    $user=Yii::$app->user->identity;
+    $userid='lk';
+    $href='#';
+}
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -28,31 +40,31 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 
-<div class="hidden-menu" id="list" style="display: none;">
-    <div class="overlay" id="overlay" style="display: none;"></div>
+<div class="hidden-menu hidden-menu-left" id="list">
+    <div class="overlay" id="overlay""></div>
     <ul>
         <a href="#" class="search"><li><span>Поиск</span><i class="fas fa-search"></i></li></a>
         <a href="/"><li>Публикации</li></a>
         <div class="thread">
             <span>Потоки</span>
-            <a href="#"><li>Старый Оскол и область</li></a>
-            <a href="#"><li>Происшествия</li></a>
-            <a href="#"><li>Общество</li></a>
-            <a href="#"><li>Спорт</li></a>
-            <a href="#"><li>Транспорт</li></a>
-            <a href="#"><li>Медицина</li></a>
-            <a href="#"><li>Культура</li></a>
-            <a href="#"><li>ЖКХ</li></a>
-            <a href="#"><li>Мнения</li></a>
-            <a href="#"><li>Экономика</li></a>
-            <a href="#"><li>Образование</li></a>
-            <a href="#"><li>Политика</li></a>
-            <a href="#"><li>Фоторепортаж</li></a>
-            <a href="#"><li>Туризм</li></a>
-            <a href="#"><li>Промышленность</li></a>
-            <a href="#"><li>Религия</li></a>
-            <a href="#"><li>ОЭМК 45</li></a>
-            <a href="#"><li>Народные новости</li></a>
+            <a href="<?=  Url::to(['category/1']) ?>"><li>Старый Оскол и область</li></a>
+            <a href="<?=  Url::to(['category/2']) ?>"><li>Происшествия</li></a>
+            <a href="<?=  Url::to(['category/3']) ?>"><li>Общество</li></a>
+            <a href="<?=  Url::to(['category/4']) ?>"><li>Спорт</li></a>
+            <a href="<?=  Url::to(['category/5']) ?>"><li>Транспорт</li></a>
+            <a href="<?=  Url::to(['category/6']) ?>"><li>Медицина</li></a>
+            <a href="<?=  Url::to(['category/7']) ?>"><li>Культура</li></a>
+            <a href="<?=  Url::to(['category/8']) ?>"><li>ЖКХ</li></a>
+            <a href="<?=  Url::to(['category/9']) ?>"><li>Мнения</li></a>
+            <a href="<?=  Url::to(['category/10']) ?>"><li>Экономика</li></a>
+            <a href="<?=  Url::to(['category/11']) ?>"><li>Образование</li></a>
+            <a href="<?=  Url::to(['category/12']) ?>"><li>Политика</li></a>
+            <a href="<?=  Url::to(['category/13']) ?>"><li>Фоторепортаж</li></a>
+            <a href="<?=  Url::to(['category/14']) ?>"><li>Туризм</li></a>
+            <a href="<?=  Url::to(['category/15']) ?>"><li>Промышленность</li></a>
+            <a href="<?=  Url::to(['category/16']) ?>"><li>Религия</li></a>
+            <a href="<?=  Url::to(['category/17']) ?>"><li>ОЭМК 45</li></a>
+            <a href="<?=  Url::to(['category/18']) ?>"><li>Народные новости</li></a>
         </div>
 
         <a href="#"><li>Пользователи</li></a>
@@ -62,14 +74,31 @@ AppAsset::register($this);
     </ul>
 </div>
 
+
+<div class="hidden-menu hidden-menu-right" id="lkList" style="display: none;">
+    <div class="overlay" id="overlay" style="display: none;"></div>
+    <ul>
+
+        <a href="#"><li><?php echo 'Привет '.$user->username;?></li></a>
+        <?= Html::a("<li>Выйти</li>", ['/site/logout'], [
+            'data' => ['method' => 'post']
+        ]);?>
+
+
+
+        <a href="#"><li>Мои посты</li></a>
+        <a href="<?= Url::to(['post/postcreate'])  ?>"><li>Создать пост</li></a>
+
+    </ul>
+</div>
+
 <header>
     <div class="container-header">
         <nav id="nav"><i class="fas fa-bars"></i></nav>
         <div class="logo"><a href="<?= Url::to(['/']) ?>">Oskol News</a></div>
-        <div class="lk"><a href="<?= Url::to(['/lk']) ?>"><i class="far fa-user"></i></a></div>
+        <div class="lk" id="<?php echo $userid ?>"><a href="<?php  echo $href ?>"><i class="far fa-user"></i></a></div>
     </div>
 </header>
-
 
 
 

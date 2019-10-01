@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\CreatePost;
 use app\models\Posts;
+use app\models\UploadForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -10,6 +12,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\UploadedFile;
 
 class PostController extends Controller
 {
@@ -69,6 +72,17 @@ class PostController extends Controller
 //        var_dump($model);
         $model->updateCounters(['count_view' => 1]);
         return $this->render('index',['model'=>$model]);
+    }
+
+    public function actionPostcreate()
+    {
+        $model = new CreatePost();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->newPost();
+            return $this->render('success');
+        }
+        return $this->render('postcreate',['model'=>$model]);
     }
 
     /**
@@ -132,4 +146,7 @@ class PostController extends Controller
     {
         return $this->render('about');
     }
+
+
+
 }

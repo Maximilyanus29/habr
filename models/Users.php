@@ -8,7 +8,11 @@ use Yii;
  * This is the model class for table "users".
  *
  * @property int $id
- * @property string $name
+ * @property string $username
+ * @property string $img
+ * @property string $password
+ * @property string $authKey
+ * @property string $accessToken
  *
  * @property Posts[] $posts
  */
@@ -28,8 +32,9 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['username', 'img', 'password', 'authKey', 'accessToken'], 'required'],
+            [['username', 'img', 'password', 'authKey'], 'string', 'max' => 255],
+            [['accessToken'], 'string', 'max' => 2555],
         ];
     }
 
@@ -40,17 +45,21 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'username' => 'Username',
+            'img' => 'Img',
+            'password' => 'Password',
+            'authKey' => 'Auth Key',
+            'accessToken' => 'Access Token',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
+
+
     public function getPosts()
     {
         return $this->hasMany(Posts::className(), ['owned_by_user' => 'id']);
     }
-
-
 }
