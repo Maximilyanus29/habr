@@ -18,7 +18,6 @@ use Yii;
  * @property int $rating
  * @property string $date
  *
- * @property Comment[] $comments
  * @property Category $inCategory
  * @property Users $ownedByUser
  */
@@ -70,14 +69,6 @@ class Posts extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getComments()
-    {
-        return $this->hasMany(Comments::className(), ['post' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getInCategory()
     {
         return $this->hasOne(Category::className(), ['Id' => 'in_category']);
@@ -91,23 +82,6 @@ class Posts extends \yii\db\ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'owned_by_user']);
     }
 
-
-
-
-
-    public function createPost($arr){
-
-        $this->h1=$arr['h1'];
-        $this->pageText=$arr['text'];
-        $this->description='faesgrdtfyfd';
-        $this->in_category=$arr['product_category'];
-        $this->owned_by_user=$arr['username'];
-        $this->count_view=0;
-        $this->count_bookmarked=0;
-        $this->rating=0;
-        $this->date=date('Y-m-d H:i:s');
-        $this->save();
-    }
 
 
 }

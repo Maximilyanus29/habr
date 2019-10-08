@@ -15,6 +15,7 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@phpQuery' => '@vendor/phpquery',
     ],
 
     'components' => [
@@ -58,6 +59,9 @@ $config = [
             'rules' => [
                 'index' => 'site/index',
                 'post/<id:\d+>'=> 'post/index',
+                'post/<action:\w+>/<id:\d+>'=> 'post/<action>',
+                'posts/mypost'=> 'post/myposts',
+                'user/<id:\d+>'=> 'post/user',
                 '/' => 'site/index',
                 'login' => 'site/login',
                 'all' => 'site/all',
@@ -66,7 +70,7 @@ $config = [
                 'contact' => 'site/contact',
                 'lk'=>'site/login',
                 'category/<id:\d+>' =>'site/category',
-//                'admin/1'=>'admin/parse'
+                'admin/category/<id:\d+>'=>'admin/default/parse'
 
             ],
         ],

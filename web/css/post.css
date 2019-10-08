@@ -298,3 +298,12 @@ p img {
   width: 100%;
 
   border-radius: 5px; }
+
+.rating a:first-child{
+  color: greenyellow;
+  font-weight: 900;
+}
+.rating a:last-child{
+  color: red;
+  font-weight: 900;
+}

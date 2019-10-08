@@ -16,9 +16,10 @@ use yii\helpers\Url;
 if (Yii::$app->user->isGuest){
     $href='login';
     $userid=null;
+    $user="Авторизуйтесь";
 }
 else{
-    $user=Yii::$app->user->identity;
+    $user='Привет '.Yii::$app->user->identity->username;
     $userid='lk';
     $href='#';
 }
@@ -79,14 +80,14 @@ AppAsset::register($this);
     <div class="overlay" id="overlay" style="display: none;"></div>
     <ul>
 
-        <a href="#"><li><?php echo 'Привет '.$user->username;?></li></a>
+        <a href="#"><li><?php echo $user;?></li></a>
         <?= Html::a("<li>Выйти</li>", ['/site/logout'], [
             'data' => ['method' => 'post']
         ]);?>
 
 
 
-        <a href="#"><li>Мои посты</li></a>
+        <a href="<?= Url::to(['posts/mypost']) ?>"><li>Мои посты</li></a>
         <a href="<?= Url::to(['post/postcreate'])  ?>"><li>Создать пост</li></a>
 
     </ul>
@@ -115,12 +116,10 @@ AppAsset::register($this);
     <div class="container">
         <h6><a href="/">Habr</a></h6>
         <div class="connection">
-            <span><i class="fab fa-twitter-square"></i></span>
-            <span><i class="fab fa-google-plus-square"></i></span>
-            <span><i class="fab fa-facebook-square"></i></span>
-            <span><i class="fas fa-share-alt-square"></i></span>
-            <span><i class="fab fa-instagram"></i></span>
-            <span><i class="fab fa-vk"></i></span>
+            <a href="https://twitter.com/Maximilyan29"><span><i class="fab fa-twitter-square"></i></span></a>
+            <a href="https://www.facebook.com/profile.php?id=100001819157953"><span><i class="fab fa-facebook-square"></i></span></a>
+            <a href="https://www.instagram.com/sani.tar.gz/?hl=ru"><span><i class="fab fa-instagram"></i></span></a>
+            <a href="https://vk.com/ryabchik29"><span><i class="fab fa-vk"></i></span></a>
 
         </div>
         <div class="footer__link"><i class="fas fa-globe-europe"></i> &nbsp Настройки языка</div>

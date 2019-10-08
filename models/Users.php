@@ -62,4 +62,15 @@ class Users extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Posts::className(), ['owned_by_user' => 'id']);
     }
+
+    public function createUser($arr){
+
+        $this->username=$arr['username'];
+        $this->password=$arr['password'];
+        $this->img=0;
+        $this->authKey=0;
+        $this->accessToken=0;
+        $this->save();
+    }
+
 }

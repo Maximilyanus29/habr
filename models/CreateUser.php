@@ -11,13 +11,10 @@ use yii\base\Model;
  * @property User|null $user This property is read-only.
  *
  */
-class CreatePost extends Model
+class CreateUser extends Model
 {
     public $username;
-    public $h1;
-    public $product_category;
-    public $text;
-    public $description;
+    public $password;
 
 
 
@@ -32,7 +29,7 @@ class CreatePost extends Model
     {
         return [
             // username and password are both required
-            [['text', 'product_category','h1','description'], 'required']
+            [['username', 'password'], 'required']
             // rememberMe must be a boolean value
             // password is validated by validatePassword()
 
@@ -43,12 +40,10 @@ class CreatePost extends Model
 
 
 
-    public function newPost()
+    public function newUser()
     {
-        $this->username=Yii::$app->user->identity->getId();
-        $createPost=new Posts();
-        $createPost->createPost((array)$this);
-        return true;
+        $createUser=new Users();
+        $createUser->createUser((array)$this);
     }
 
 

@@ -28,8 +28,10 @@ use yii\helpers\Html; ?>
             ); ?>
 
 
-
-            <?= $form->field($model, 'text')->textInput() ?>
+            <?= $form->field($model, 'h1')->textInput() ?>
+            <?= $form->field($model, 'text')->textInput(['style'=>['width'=>'90%',
+                'height'=>'300px']]) ?>
+            <?= $form->field($model, 'description')->textInput() ?>
 
 
 

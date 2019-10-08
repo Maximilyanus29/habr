@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\Category;
+use app\models\Comments;
+use app\models\CreateUser;
 use app\models\LoginForm;
 use app\models\Posts;
 use app\models\Users;
@@ -99,11 +101,15 @@ class SiteController extends Controller
         $countQuery = clone $query;
         // подключаем класс Pagination, выводим по 10 пунктов на страницу
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 10]);
+
         // приводим параметры в ссылке к ЧПУ
         $pages->pageSizeParam = false;
         $model = $query->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
+
+
+//        $comments=Comments::find()->where(['post' => $model ])->all();
         // Передаем данные в представление
         return $this->render('index', [
             'model' => $model,
@@ -138,8 +144,26 @@ class SiteController extends Controller
 
     public function actionCategory($id)
     {
+        $query = Posts::find()->where(['in_category'=>$id])->orderBy('date DESC');
+//        var_dump($query);
+        // делаем копию выборки
+        $countQuery = clone $query;
+        // подключаем класс Pagination, выводим по 10 пунктов на страницу
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+        // приводим параметры в ссылке к ЧПУ
+        $pages->pageSizeParam = false;
+        $model = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+        if (empty($model)){
+            return $this->render('empty');
+        }
+        // Передаем данные в представление
+        return $this->render('index', [
+            'model' => $model,
+            'pages' => $pages,
+        ]);
 
-        $model= Posts::find()->where(['in_category'=>$id])->orderBy('date DESC')->limit(10)->all();
         return $this->render('index',['model'=>$model]);
     }
 
@@ -166,6 +190,30 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionReg()
+    {
+
+
+
+        $model = new CreateUser();
+
+        if ($model->load(Yii::$app->request->post())&& $model->validate()) {
+
+            if ($model->newUser()){
+                return 'registration is successfull';
+            }
+            else{
+                return 'kakaya to oshibka';
+            }
+
+        }
+
+        $model->password = '';
+        return $this->render('reg', [
+            'model' => $model,
+        ]);
+    }
+
     /**
      * Logout action.
      *
@@ -183,26 +231,26 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+//    public function actionContact()
+//    {
+//        $model = new ContactForm();
+//        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+//            Yii::$app->session->setFlash('contactFormSubmitted');
+//
+//            return $this->refresh();
+//        }
+//        return $this->render('contact', [
+//            'model' => $model,
+//        ]);
+//    }
+//
+//    /**
+//     * Displays about page.
+//     *
+//     * @return string
+//     */
+//    public function actionAbout()
+//    {
+//        return $this->render('about');
+//    }
 }

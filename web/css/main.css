@@ -247,6 +247,11 @@ header {
         height: 24px;
         background-color: red;
         border-radius: 7px; }
+.content .item .item-top .user-nickname {
+  font-family: 'Fira Sans',sans-serif;
+  font-weight: 600;
+  color: #e0da91;
+}
     .content .item .item-content-preview {
       margin-bottom: 13px; }
       .content .item .item-content-preview h2 a {
@@ -350,16 +355,38 @@ footer {
 
 
   .pagination{
+    border-top: 1px solid silver;
+    border-bottom: 1px solid silver;
+    border-radius: 5px;
     display: flex;
+    margin: 10px 0;
+    max-width: 18.3%;
   }
 
-.pagination li{
-  border: 1px solid #0c5460;
+  .pagination li:first-child{
+
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 5px 10px;
+  }
+
+.pagination li:last-child{
+
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 5px 10px;
+  border-right: 1px solid silver;
+}
+.pagination li {
+  border-left: 1px solid silver;
   padding: 5px 10px;
 }
-.pagination .active a{
-  color: red!important;
+.pagination .active{
+  background-color: #b8ebff;
+  font-weight: 600;
 }
+
+
 /*p img {*/
 /*  width: 100%;*/
 /*  height: 350px;*/
