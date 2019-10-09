@@ -10,6 +10,10 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $authKey;
     public $accessToken;
     public $img;
+    public $rating;
+    public $karma;
+    public $name;
+    public $is_admin;
 
 //    private static $users = [
 //        '100' => [
@@ -36,6 +40,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     {
         return isset(Users::findOne($id)->id) ? new static(Users::findOne($id)) : null;
     }
+
 
     /**
      * {@inheritdoc}

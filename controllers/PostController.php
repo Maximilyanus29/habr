@@ -136,6 +136,12 @@ class PostController extends Controller
         $model=Posts::find()->where(['owned_by_user'=>$id])->all();
         return $this->render('to_user',['model'=>$model]);
     }
+
+    public function actionComments($id)
+    {
+        $model=Posts::find()->where(['id'=>$id])->all();
+        return $this->render('Comments',['model'=>$model]);
+    }
 //ratingplus
     /**
      * Login action.

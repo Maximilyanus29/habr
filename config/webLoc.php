@@ -60,7 +60,6 @@ $config = [
                 'index' => 'site/index',
                 'post/<id:\d+>'=> 'post/index',
                 'post/<action:\w+>/<id:\d+>'=> 'post/<action>',
-                'post/<id:\d+>/comments'=> 'post/comments',
                 'posts/mypost'=> 'post/myposts',
                 'user/<id:\d+>'=> 'post/user',
                 '/' => 'site/index',
