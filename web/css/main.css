@@ -347,12 +347,11 @@ footer {
 
 
   .pagination{
-    border-top: 1px solid silver;
-    border-bottom: 1px solid silver;
+
     border-radius: 5px;
     display: flex;
     margin: 10px 0;
-    max-width: 18.3%;
+
   }
 
   .pagination li:first-child{
@@ -367,10 +366,10 @@ footer {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   padding: 5px 10px;
-  border-right: 1px solid silver;
+  /*border-right: 1px solid silver;*/
 }
 .pagination li {
-  border-left: 1px solid silver;
+
   padding: 5px 10px;
 }
 .pagination .active{

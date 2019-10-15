@@ -1,0 +1,18 @@
+
+
+.site-login{
+  position: relative;
+  width: 100%;
+  height: 600px;
+}
+
+.absolute{
+  width: 30%;
+  height: 50%;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  border: 1px solid #0c5460;
+  text-align: center;
+}

@@ -17,6 +17,7 @@ if (Yii::$app->user->isGuest){
     $href='login';
     $userid=null;
     $user="Авторизуйтесь";
+    $userhref='';
 }
 else{
     $user='Привет '.Yii::$app->user->identity->username;
@@ -129,13 +130,13 @@ $this->registerLinkTag([
             <a href="https://vk.com/ryabchik29"><span><i class="fab fa-vk"></i></span></a>
 
         </div>
-        <div class="footer__link"><i class="fas fa-globe-europe"></i> &nbsp Настройки языка</div>
-        <a href="#" class="footer__link">Полная версия</a>
-    </div>
-    <div class="link-app">
-        <img src="/img/app-store.svg" alt="">
-        <img src="/img/google-play.svg" alt="">
-    </div>
+<!--        <div class="footer__link"><i class="fas fa-globe-europe"></i> &nbsp Настройки языка</div>-->
+<!--        <a href="#" class="footer__link">Полная версия</a>-->
+<!--    </div>-->
+<!--    <div class="link-app">-->
+<!--        <img src="/img/app-store.svg" alt="">-->
+<!--        <img src="/img/google-play.svg" alt="">-->
+<!--    </div>-->
     <div class="footer_info">© 2006–2019 «TM»</div>
 </footer>
 
