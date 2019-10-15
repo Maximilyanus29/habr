@@ -2,7 +2,6 @@
 
 <?php
     $this->registerCssFile('/css/post.css');
-$this->registerCssFile('/css/postprefooter.css');
     use app\models\ReplaceDate;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -18,6 +17,9 @@ if ($user==1){
 else{
      $isAdmin="Пользователь";
 }
+
+$this->title = strip_tags($model->h1);
+
 
 ?>
 

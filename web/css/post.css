@@ -1,5 +1,6 @@
-@import url("https://fonts.googleapis.com/css?family=Bitter|Cute+Font");
-@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+@import url("comment.css");
+@import url("postprefooter.css");
+
 * {
   padding: 0;
   margin: 0;
@@ -53,66 +54,7 @@ header {
     color: #323436;
     font-size: 2em; }
 
-.overlay {
-  display: none;
-  z-index: 1;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.2); }
 
-.hidden-menu {
-  display: none;
-  z-index: 40;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  overflow-y: auto;
-  background-color: white;
-  width: 72%;
-  -webkit-transition: 5s;
-  -o-transition: 5s;
-  transition: 5s; }
-  .hidden-menu a {
-    width: 100%;
-    display: block; }
-  .hidden-menu .search li {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    padding-right: 20px; }
-  .hidden-menu .thread {
-    border-bottom: 1px solid #eaeaea; }
-    .hidden-menu .thread span {
-      font-size: 0.8em;
-      padding-left: 20px;
-      color: #798e98; }
-    .hidden-menu .thread li {
-      border: none;
-      line-height: 45px;
-      color: #444; }
-  .hidden-menu ul {
-    position: relative;
-    z-index: 2;
-    overflow-y: auto;
-    background-color: #fff; }
-    .hidden-menu ul li {
-      line-height: 60px;
-      padding-left: 20px;
-      color: #333;
-      border-bottom: 1px solid #eaeaea; }
 
 .content-wrap {
   position: relative;

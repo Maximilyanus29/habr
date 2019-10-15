@@ -108,6 +108,14 @@ class SiteController extends Controller
             ->limit($pages->limit)
             ->all();
 
+        $this->view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => 'OskolNews, oskolnews, новости оскола, старый оскол, новости'
+        ]);
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => 'Бесплатно Просмотр, Публикация - статей, новостей'
+        ]);
 
 //        $comments=Comments::find()->where(['post' => $model ])->all();
         // Передаем данные в представление

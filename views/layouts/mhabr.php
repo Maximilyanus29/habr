@@ -25,6 +25,10 @@ else{
 }
 
 AppAsset::register($this);
+$this->registerLinkTag([
+    'rel' => 'shortcut icon',
+    'type' => 'image/x-icon',
+    'href' => '../../web/favicon.png',]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -114,7 +118,7 @@ AppAsset::register($this);
 
 <footer>
     <div class="container">
-        <h6><a href="/">Habr</a></h6>
+        <h6><a href="/">OskolNews</a></h6>
         <div class="connection">
             <a href="https://twitter.com/Maximilyan29"><span><i class="fab fa-twitter-square"></i></span></a>
             <a href="https://www.facebook.com/profile.php?id=100001819157953"><span><i class="fab fa-facebook-square"></i></span></a>

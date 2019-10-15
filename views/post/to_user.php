@@ -72,6 +72,32 @@ $this->title = 'About';
 
         <?php  endforeach; ?>
 
+        <div class="white-block display-flex white-block_row">
+            <div class="users-info-wrap display-flex">
+                <div class="user-block user-block_64 user-block_default-img"><img src="/img/<?php echo($model->ownedByUser->img); ?>" alt=""></div>
+                <div class="user-block user-block_64 user-block_rating">
+                    <span class="user-block__rating-id"><?php echo($model->ownedByUser->karma); ?></span>
+                    <div class="user-block__rating-name">Карма</div>
+                </div>
+                <div class="user-block user-block_64 user-block_rating">
+                    <span class="user-block__rating-id"><?php echo($model->ownedByUser->rating); ?></span>
+                    <div class="user-block__rating-name">Рейтинг</div>
+                </div>
+            </div>
+
+
+            <div class="user-info">
+                <span class="user-info__name"><?php echo($model->ownedByUser->name); ?></span>
+                <a href="user/<?php echo($model->ownedByUser->id); ?>"><span class="user-info__link">@<?php echo($model->ownedByUser->username); ?></span></a>
+            </div>
+
+            <div class="white-block__who">
+                <span class="user-info__name"><?php echo($isAdmin) ?></span>
+            </div>
+
+            <a href="#" class="button button_material"><span>Подписаться</span></a>
+        </div>
+
 
 
 

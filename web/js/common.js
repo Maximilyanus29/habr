@@ -48,7 +48,7 @@ if (lk) {
 
 
 function openNavMenu() {
-    var list=document.getElementById('list');
+    var list=document.getElementById('list'),
         overlay = overlays[0];
 
     if (list.classList[list.classList.length-1]=='nav-open-left') {

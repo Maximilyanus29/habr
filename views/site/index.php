@@ -5,7 +5,8 @@ use app\models\ReplaceDate;
 // Url::to() вызывает UrlManager::createUrl() для создания URL
 use \yii\helpers\Html;
 use yii\widgets\LinkPager;
-$this->title = 'About';
+$this->title = 'OskolNews | Новости Старого Оскола, бесплатная публикация новостей и статей';
+
 
         ?>
 <section class="content-wrap" id="content-wrap">

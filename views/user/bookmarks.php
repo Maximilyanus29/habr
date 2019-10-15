@@ -5,8 +5,9 @@ use app\models\ReplaceDate;
 // Url::to() вызывает UrlManager::createUrl() для создания URL
 use \yii\helpers\Html;
 use yii\widgets\LinkPager;
-$this->title = 'About';
-$this->registerCssFile('/css/post.css');
+$this->title = 'OskolNews | Новости Старого Оскола, бесплатная публикация новостей и статей';
+
+
 ?>
 <section class="content-wrap" id="content-wrap">
 
@@ -29,7 +30,9 @@ $this->registerCssFile('/css/post.css');
                     </div>
          -->
         <div class="filter-line">
-            <a href="#">Категория</a>
+            <a href="<?= Url::to(['index']) ?>">Лучшие</a>
+            <a href="<?= Url::to(['all']) ?>">Все подряд</a>
+            <a href="/filter"><i class="fas fa-filter"></i></a>
         </div>
 
 
@@ -63,52 +66,15 @@ $this->registerCssFile('/css/post.css');
                         href=""
                         onclick="bookmark(this);return false"
                         class="link"><span><i class="fas fa-bookmark"></i>&nbsp<?= Html::encode($value->count_bookmarked) ?></span></a>
-
+                    <a href="<?= Url::to(['post/'.$value->id.'#comments']) ?>"><span><i class="fas fa-comment-alt"></i>&nbsp<?= Html::encode(count($value->comments)) ?></span></a>
                 </div>
             </div>
 
 
         <?php  endforeach; ?>
 
-        <div class="white-block">
-            <p class="prev">Комментарии <span> &nbsp13</span></p>
 
-            <div class="comment-item">
-                <div class="user-info">
-                    <a href="#">
-                        <img src="<?php echo('img'.$value->ownedByUser->img); ?>" alt="123">
-                        <span class="user-name"><?php echo($value->ownedByUser->username); ?></span>
-                    </a>
 
-                    <span class="date-comment">27/09/96</span>
-                </div>
-                <p>Спасибо за статью. Было интересно! Сам недавно столкнулся с этим, простая загрузка аватарки в браузере — давала странные результаты в виде развернутых изображений и так простая загрузка аватарки — превратилась в не очень простую — с разбором EXIF.</p>
-                <a href="#" class="responseto"><span>Ответить</span></a>
-                <a href="#" class="responseto bookmark"><span><i class="fas fa-bookmark"></i></span></a>
-            </div>
-
-            <div class="comment-item">
-                <div class="user-info">
-                    <a href="#">
-                        <img src="<?php echo('img'.$value->ownedByUser->img); ?>" alt="123">
-                        <span class="user-name"><?php echo($value->ownedByUser->username); ?></span>
-                    </a>
-
-                    <span class="date-comment">27/09/96</span>
-                </div>
-                <p>Спасибо за статью. Было интересно! Сам недавно столкнулся с этим, простая загрузка аватарки в браузере — давала странные результаты в виде развернутых изображений и так простая загрузка аватарки — превратилась в не очень простую — с разбором EXIF.</p>
-                <a href="#" class="responseto"><span>Ответить</span></a>
-                <a href="#" class="responseto bookmark"><span><i class="fas fa-bookmark"></i></span></a>
-            </div>
-
-            <div class="type-comment">
-                <p class="prev">Написать комментарий</p>
-                <textarea></textarea>
-                <button class="preview">Предпросмотр</button>
-                <button  class="send preview">Отправить</button>
-            </div>
-
-        </div>
 
 
 </section>

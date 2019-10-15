@@ -1,16 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Bitter|Cute+Font");
-@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 
-@import url("font.css");
-
-
-@font-face {
-  font-family: 'Fira Sans';
-  src: local('Fira Sans ExtraBold'), local('FiraSans-ExtraBold'), url('../font/Firasansextrabold.woff2') format('woff2'), url('../font/Firasansextrabold.woff') format('woff'), url('../font/Firasansextrabold.ttf') format('truetype');
-  font-weight: 800;
-  font-style: normal;
-}
-
+@import url("../font/firasans.css");
 
 * {
   padding: 0;
@@ -60,8 +49,7 @@ header {
             align-items: center;
     color: #9da1a3; }
   header .logo a {
-/*    font-family: 'Bitter', serif;
-    font-weight: 800;*/
+
     color: #323436;
     font-size: 2em; }
 
@@ -214,9 +202,13 @@ header {
   .content a {
     color: #414b50; }
     .content h1{
+      font-weight: 500;
       line-height: 28px;
       color: #333;
       font-size: 18px;
+    }
+    .content a:visited h1{
+      color: #487284!important;
     }
   .content .item {
     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -249,7 +241,7 @@ header {
         border-radius: 7px; }
 .content .item .item-top .user-nickname {
   font-family: 'Fira Sans',sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   color: #e0da91;
 }
     .content .item .item-content-preview {

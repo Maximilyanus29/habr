@@ -47,11 +47,9 @@ class PostController extends Controller
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
+
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -63,11 +61,8 @@ class PostController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
+
+
     public function actionIndex($id)
     {
         $comments= Comments::findAll(['post' => $id]);
@@ -86,8 +81,14 @@ class PostController extends Controller
             }
         }
 
-//        var_dump($model);
-
+        $this->view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => 'OskolNews, oskolnews, новости оскола, старый оскол, новости'
+        ]);
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => 'Бесплатно Просмотр, Публикация - статей, новостей'
+        ]);
 
         return $this->render('index',['model'=>$model,'comment'=> $comment,'comments'=>$comments]);
     }
@@ -100,7 +101,6 @@ class PostController extends Controller
             if ($model->newPost()){
                 return $this->render('success');
             }
-
             else{
                 var_dump($model);
             }
@@ -112,47 +112,23 @@ class PostController extends Controller
     public function actionRatingplus($id)
     {
         $model= Posts::findOne($id);
-//        var_dump($model);
         $model->updateCounters(['rating' => 1]);
         return $this->redirect('/post/'.$id.'#rating');
     }
     public function actionRatingminus($id)
     {
         $model= Posts::findOne($id);
-//        var_dump($model);
         $model->updateCounters(['rating' => -1]);
         return $this->redirect('/post/'.$id.'#rating');
     }
 
 
-    public function actionMyposts()
-    {
-        $model=Posts::find()->where(['owned_by_user'=>Yii::$app->user->identity->id])->all();
-        return $this->render('user',['model'=>$model]);
-    }
 
-    public function actionUser($id)
-    {
-        $model=Posts::find()->where(['owned_by_user'=>$id])->all();
-        return $this->render('to_user',['model'=>$model]);
-    }
 
     public function actionComments($id)
     {
         $model=Posts::find()->where(['id'=>$id])->all();
-        return $this->render('Comments',['model'=>$model]);
+        return $this->render('comments',['model'=>$model]);
     }
-//ratingplus
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
-
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
 
 }

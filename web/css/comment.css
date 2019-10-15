@@ -1,0 +1,83 @@
+.prev {
+  font-weight: 900;
+  font-family: 'Montserrat', sans-serif;
+  padding-bottom: 15px;
+  border-bottom: 1px solid silver; }
+  .prev span {
+    color: #4b8eab; }
+
+.comment-item {
+  display: inline-block; }
+  .comment-item a {
+    display: inline-block;
+    margin: 0 4px 0 0; }
+  .comment-item img {
+    -webkit-border-radius: 3px;
+            border-radius: 3px;
+    display: inline-block;
+    height: 24px;
+    margin: 0 4px 0 0;
+    max-width: 100%;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 24px; }
+  .comment-item span {
+    vertical-align: middle;
+    display: inline-block; }
+  .comment-item p {
+    font-weight: 600; }
+  .comment-item .responseto {
+    margin-top: 10px;
+    margin-right: 15px;
+    -webkit-border-radius: 14px;
+            border-radius: 14px;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 28px;
+    padding: 0 12px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #f2f6f9;
+    border-color: transparent;
+    color: #627781;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; }
+  .comment-item .bookmark {
+    border: 1px solid #f2f6f9;
+    color: #bdcdd6;
+    background-color: white; }
+
+.type-comment .prev {
+  margin-top: 20px;
+  border: none; }
+
+.type-comment textarea {
+  min-width: 100%;
+  max-width: 100%;
+  font-size: 19px;
+  padding: 11px;
+  border-color: #e4e8ea !important; }
+
+.type-comment .preview {
+  margin-top: 20px;
+  background-color: #fff;
+  border-color: #e4e8ea !important;
+  color: #5594af;
+  border: 1px solid;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  cursor: pointer;
+  font-size: 13px;
+  height: 34px;
+  padding: 0 13px; }
+
+.type-comment .send {
+  background-color: #548eaa;
+  border-color: #548eaa;
+  color: #fff;
+  margin: 0 0 0 12px; }
