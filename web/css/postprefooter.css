@@ -56,9 +56,19 @@ a {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex; }
+.user-block_32 {
+  width: 32px;
+  height: 32px;
+  font-size: 20px!important;}
+
+.users-info-wrap{
+  margin-bottom: 7px;
+}
+
   .user-block_64 {
     width: 64px;
     height: 64px; }
+
   .user-block_default-img {
     display: -webkit-box;
     display: -webkit-flex;
@@ -88,8 +98,9 @@ a {
     position: absolute;
     bottom: 0; }
 
-.user-info {
+.user-info_theme {
   padding: 10px 0; }
+
   .user-info__name {
     font-weight: 700; }
   .user-info__link {

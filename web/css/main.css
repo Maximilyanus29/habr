@@ -378,7 +378,9 @@ footer {
   font-weight: 600;
 }
 
-
+.close{
+  display: none;
+}
 /*p img {*/
 /*  width: 100%;*/
 /*  height: 350px;*/

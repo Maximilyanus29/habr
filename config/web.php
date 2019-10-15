@@ -67,12 +67,19 @@ $config = [
                 '/' => 'site/index',
                 'login' => 'site/login',
                 'all' => 'site/all',
+                '/help' => 'site/help',
+                '/callback' => 'site/callback',
+                '/search' => 'site/search',
+
                 'top' => 'site/top',
                 'about' => 'site/about',
                 'contact' => 'site/contact',
                 'lk'=>'site/login',
                 'category/<id:\d+>' =>'site/category',
-                'admin/category/<id:\d+>'=>'admin/default/parse'
+                'admin/category/<id:\d+>'=>'admin/default/parse',
+                'users/'=>'user/index',
+                'companyes/'=>'site/companyes',
+                'company/<id:\d+>'=>'site/company'
 
             ],
         ],

@@ -22,7 +22,7 @@ use yii\helpers\Html;
 		</div>
 		
 
-		<div class="user-info">
+		<div class="user-info user-info_theme">
 			<span class="user-info__name"><?= Html::encode($model->name); ?></span>
 			<a href="#"><span class="user-info__link">@<?= Html::encode($model->username); ?></span></a>
 		</div>

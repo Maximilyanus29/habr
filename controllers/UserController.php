@@ -16,6 +16,12 @@ class UserController extends Controller
     public $layout='mhabr';
 
 
+    public function actionIndex()
+    {
+        $model=Users::find()->limit(10)->all();
+        return $this->render('userslist',['model'=>$model]);
+    }
+
     public function actionUser($id)
     {
         $model=Users::find()->where(['id'=>$id])->one();

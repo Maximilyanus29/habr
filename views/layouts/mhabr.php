@@ -20,9 +20,12 @@ if (Yii::$app->user->isGuest){
 }
 else{
     $user='Привет '.Yii::$app->user->identity->username;
+    $userhref=Yii::$app->user->identity->id;
     $userid='lk';
     $href='#';
 }
+
+
 
 AppAsset::register($this);
 $this->registerLinkTag([
@@ -48,7 +51,7 @@ $this->registerLinkTag([
 <div class="hidden-menu hidden-menu-left" id="list">
     <div class="overlay" id="overlay""></div>
     <ul>
-        <a href="#" class="search"><li><span>Поиск</span><i class="fas fa-search"></i></li></a>
+        <a href="/search" class="search"><li><span>Поиск</span><i class="fas fa-search"></i></li></a>
         <a href="/"><li>Публикации</li></a>
         <div class="thread">
             <span>Потоки</span>
@@ -72,10 +75,10 @@ $this->registerLinkTag([
             <a href="<?=  Url::to(['category/18']) ?>"><li>Народные новости</li></a>
         </div>
 
-        <a href="#"><li>Пользователи</li></a>
-        <a href="#"><li>Компании</li></a>
-        <a href="#"><li>Помощь</li></a>
-        <a href="#"><li>Обратная связь</li></a>
+        <a href="/users"><li>Пользователи</li></a>
+        <a href="/companyes"><li>Компании</li></a>
+        <a href="/help"><li>Помощь</li></a>
+        <a href="/callback"><li>Обратная связь</li></a>
     </ul>
 </div>
 
@@ -91,7 +94,7 @@ $this->registerLinkTag([
 
 
 
-        <a href="<?= Url::to(['posts/mypost']) ?>"><li>Мои посты</li></a>
+        <a href="<?= Url::to(['user/'.$userhref]) ?>"><li>Мои посты</li></a>
         <a href="<?= Url::to(['post/postcreate'])  ?>"><li>Создать пост</li></a>
 
     </ul>

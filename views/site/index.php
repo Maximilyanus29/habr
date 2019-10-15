@@ -32,8 +32,12 @@ $this->title = 'OskolNews | Новости Старого Оскола, бесп
 <div class="filter-line">
 	<a href="<?= Url::to(['index']) ?>">Лучшие</a>
 	<a href="<?= Url::to(['all']) ?>">Все подряд</a>
-	<a href="/filter"><i class="fas fa-filter"></i></a>
+	<a href="#" onclick="gofilter()"><i class="fas fa-filter"></i></a>
 </div>
+
+        <div id="toggle"  class="filter-line close">
+            <a href="<?= Url::to(['index']) ?>">Этот фильтр пока не работает</a>
+        </div>
 
 
 
@@ -96,3 +100,20 @@ $this->title = 'OskolNews | Новости Старого Оскола, бесп
 ?>
 </section>
 
+<script>
+
+    function gofilter(){
+        var toggle = document.getElementById('toggle');
+
+        if ('close' == toggle.classList[1]) {
+            console.log(toggle.classList[1]);
+            toggle.classList.remove('close');
+        }
+        else {
+            toggle.classList.add('close');
+        }
+    }
+
+
+
+</script>

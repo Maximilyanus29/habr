@@ -14,6 +14,8 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $karma;
     public $name;
     public $is_admin;
+    public $date;
+    public $bookmarks;
 
 //    private static $users = [
 //        '100' => [

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Category;
 use app\models\Comments;
+use app\models\Companyes;
 use app\models\CreateUser;
 use app\models\LoginForm;
 use app\models\Posts;
@@ -180,6 +181,36 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
+    public function actionSearch()
+    {
+        $model = Companyes::find()->all();
+        return $this->render('search');
+    }
+
+    public function actionCompanyes()
+    {
+        $model = Companyes::find()->all();
+        return $this->render('companyes',['model'=>$model]);
+    }
+
+    public function actionCompany($id)
+    {
+        $model = Companyes::find()->where(['id'=>$id])->one();
+        return $this->render('company',['model'=>$model]);
+    }
+
+    public function actionHelp()
+    {
+        return $this->render('help');
+    }
+
+    public function actionCallback()
+    {
+        return $this->render('callback');
+    }
+
+
+
     public function actionLogin()
     {
 
