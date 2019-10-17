@@ -29,12 +29,12 @@ class Comment extends Model
     public function postComment($id)
     {
         $this->post=$id;
-        if (Yii::$app->user->identity->getId()){
+        if (!Yii::$app->user->isGuest){
 
             $this->username = Yii::$app->user->identity->getId();
         }
         else{
-            return 'Войте в учетную запись';
+            return false;
         }
         $createComment = new Comments();
         $createComment->createComment((array)$this);

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Category;
+use app\models\Comment;
 use app\models\Comments;
 use app\models\Companyes;
 use app\models\CreateUser;
@@ -242,7 +243,7 @@ class SiteController extends Controller
                 return 'registration is successfull';
             }
             else{
-                return 'kakaya to oshibka';
+                return "Какая то ошибка";
             }
 
         }
@@ -263,6 +264,28 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+
+
+    public function actionAddbookmark($id)
+    {
+
+        if (!Yii::$app->user->isGuest) {
+            $users = new Users();
+            $user = $users->find()->where(['id' => Yii::$app->user->identity->getId()])->one();
+            $user->bookmarks=$user->bookmarks.','.$id;
+
+            $post = Posts::findOne($id);
+            $post->updateCounters(['count_bookmarked' => 1]);
+
+            $user->save();
+            var_dump($user);
+            return $this->redirect('/');
+
+        }
+
+        return false;
     }
 
     /**

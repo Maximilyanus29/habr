@@ -1,26 +1,64 @@
 
 
-function bookmark(a){
+function bookmark(event){
 
 
-    if (window.sidebar){ // firefox
-        return false;
-    }
-    else if(window.opera && window.print){ // opera
-        return false;
-    }
-    else if(document.all){ // ie
-        window.external.AddFavorite(a.href2 || a.href, a.title);
-        if(!a.href2){
-            a.href2 = a.href;
-            a.href="#";
-        }
-    } else {
-        alert('Пожалуйста, нажмите Ctrl + D или CMD + D для MAC, \n что бы добавить в закладки.');
-        a.href=+"#";
-        return false;
-    }
+    event.preventDefault();
+
+
+    httpGet(event.currentTarget.href)
+        .then(
+            response => alert(response));
+
 }
+
+function httpGet(url) {
+
+    return new Promise(function(resolve, reject) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onload = function() {
+            if (this.status == 200) {
+                resolve(this.response);
+            } else {
+                var error = new Error(this.statusText);
+                error.code = this.status;
+                reject(error);
+            }
+        };
+
+        xhr.onerror = function() {
+            reject(new Error("Network Error"));
+        };
+
+        xhr.send();
+    });
+
+}
+
+
+
+function link(e){
+    resetmenu();
+    e.preventDefault();
+    e.currentTarget.children[0].classList.add('active');
+
+    httpGet(e.currentTarget.href)
+        .then(
+            response => inserToRoot(response));
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

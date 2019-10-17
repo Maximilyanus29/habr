@@ -70,6 +70,7 @@ $config = [
                 '/help' => 'site/help',
                 '/callback' => 'site/callback',
                 '/search' => 'site/search',
+                '/addbookmark/<id:\d+>' => 'site/addbookmark',
 
                 'top' => 'site/top',
                 'about' => 'site/about',

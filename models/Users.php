@@ -67,10 +67,17 @@ class Users extends \yii\db\ActiveRecord
 
         $this->username=$arr['username'];
         $this->password=$arr['password'];
-        $this->img=0;
-        $this->authKey=0;
-        $this->accessToken=0;
+        $this->img='1';
+        $this->authKey='1';
+        $this->accessToken='1';
+        $this->rating=0;
+        $this->karma=0;
+        $this->name=0;
+        $this->is_admin=0;
+        $this->date=0;
+        $this->bookmarks=0;
         $this->save();
+        var_dump($this);
     }
 
 }

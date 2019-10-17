@@ -42,8 +42,16 @@ class CreateUser extends Model
 
     public function newUser()
     {
-        $createUser=new Users();
-        $createUser->createUser((array)$this);
+        $createUser= Users::find()->where(['username'=>$this->username])->one();
+        if(!$createUser){
+            $createUser=new Users();
+            $createUser->createUser((array)$this);
+        }
+        else {
+            return 'такой пользователь уже есть';
+        }
+
+
     }
 
 

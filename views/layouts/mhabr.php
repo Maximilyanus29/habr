@@ -21,7 +21,7 @@ if (Yii::$app->user->isGuest){
 }
 else{
     $user='Привет '.Yii::$app->user->identity->username;
-    $userhref=Yii::$app->user->identity->id;
+    $userhref=Yii::$app->user->identity->getId();
     $userid='lk';
     $href='#';
 }

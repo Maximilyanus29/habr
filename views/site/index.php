@@ -8,6 +8,7 @@ use yii\widgets\LinkPager;
 $this->title = 'OskolNews | Новости Старого Оскола, бесплатная публикация новостей и статей';
 
 
+
         ?>
 <section class="content-wrap" id="content-wrap">
 
@@ -67,7 +68,16 @@ $this->title = 'OskolNews | Новости Старого Оскола, бесп
                                 <a
                                         id="fav"
                                         rel="sidebar"
-                                        href=""
+                                        href="<?php
+                                        if (Yii::$app->user->isGuest){
+                                            $bookmarkhref = '/login';
+                                        }
+                                        else{
+                                            $bookmarkhref = '/addbookmark/'.$value->id;
+                                        }
+                                        echo $bookmarkhref;
+
+                                        ?>"
                                         onclick="bookmark(this);return false"
                                         class="link"><span><i class="fas fa-bookmark"></i>&nbsp<?= Html::encode($value->count_bookmarked) ?></span></a>
                                 <a href="<?= Url::to(['post/'.$value->id.'#comments']) ?>"><span><i class="fas fa-comment-alt"></i>&nbsp<?= Html::encode(count($value->comments)) ?></span></a>

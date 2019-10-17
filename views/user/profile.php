@@ -34,10 +34,10 @@ use yii\helpers\Html;
 		<a href="#" class="button button_material"><span>Подписаться</span></a>
 
 		<ul class="menu-user" id="menu-user">
-				<a href="11/profile" onclick="link(event)"><li class="active">Профиль</li></a>
-				<a href="11/posts" onclick="link(event)"><li>Публикации</li></a>
-				<a href="11/comments" onclick="link(event)"><li>Комментарии</li></a>
-				<a href="11/bookmarks" onclick="link(event)"><li>Закладки</li></a>
+				<a href="<?= Html::encode($model->id); ?>/profile" onclick="link(event)"><li class="active">Профиль</li></a>
+				<a href="<?= Html::encode($model->id); ?>/posts" onclick="link(event)"><li>Публикации</li></a>
+				<a href="<?= Html::encode($model->id); ?>/comments" onclick="link(event)"><li>Комментарии</li></a>
+				<a href="<?= Html::encode($model->id); ?>/bookmarks" onclick="link(event)"><li>Закладки</li></a>
 		</ul>
 	</div>
 

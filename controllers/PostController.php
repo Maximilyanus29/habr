@@ -70,16 +70,7 @@ class PostController extends Controller
         $model= Posts::findOne($id);
         $model->updateCounters(['count_view' => 1]);
 
-        if ($comment->load(Yii::$app->request->post()) && $comment->validate()) {
-            if ($comment->postComment($id)){
 
-                return $this->renderAjax('comment',['comment'=>$comment]);
-            }
-
-            else{
-                var_dump($model);
-            }
-        }
 
         $this->view->registerMetaTag([
             'name' => 'keywords',
@@ -127,8 +118,26 @@ class PostController extends Controller
 
     public function actionComments($id)
     {
-        $model=Posts::find()->where(['id'=>$id])->all();
-        return $this->render('comments',['model'=>$model]);
+
+
+        $model=Posts::find()->where(['id'=>$id])->one();
+        $comments=Comments::find()->where(['post'=>$id])->all();
+        $commentForm= new Comment();
+
+        if ($commentForm->load(Yii::$app->request->post()) && $commentForm->validate()) {
+            if ($commentForm->postComment($id)){
+
+                return $this->refresh();
+            }
+
+            else{
+                $err='Не отправлено';
+                return $this->render('comments',['model'=>$model,'comments'=>$comments,'commentForm'=>$commentForm,'err'=>$err]);
+            }
+        }
+        return $this->render('comments',['model'=>$model,'comments'=>$comments,'commentForm'=>$commentForm]);
     }
+
+
 
 }
