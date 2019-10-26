@@ -1,6 +1,6 @@
 .prev {
-  font-weight: 900;
-  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  /*font-family: 'Montserrat', sans-serif;*/
   padding-bottom: 15px;
   border-bottom: 1px solid silver; }
   .prev span {
@@ -22,11 +22,16 @@
     overflow: hidden;
     vertical-align: middle;
     width: 24px; }
-  .comment-item span {
+  .comment-item .user-name{
     vertical-align: middle;
+    color: #e0da91;
     display: inline-block; }
+.comment-item .date-comment{
+  vertical-align: middle;
+  color: #777;
+  display: inline-block; }
   .comment-item p {
-    font-weight: 500;
+margin-top: 5px;
   width: 100%;
   }
   .comment-item .responseto {

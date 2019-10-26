@@ -14,7 +14,7 @@ use yii\helpers\Url;
 
 
 if (Yii::$app->user->isGuest){
-    $href='login';
+    $href='/login';
     $userid=null;
     $user="Авторизуйтесь";
     $userhref='';
@@ -95,8 +95,8 @@ $this->registerLinkTag([
 
 
 
-        <a href="<?= Url::to(['user/'.$userhref]) ?>"><li>Мои посты</li></a>
-        <a href="<?= Url::to(['post/postcreate'])  ?>"><li>Создать пост</li></a>
+        <a href="<?= Url::to(['/user/'.$userhref]) ?>"><li>Мои посты</li></a>
+        <a href="<?= Url::to(['/post/postcreate'])  ?>"><li>Создать пост</li></a>
 
     </ul>
 </div>

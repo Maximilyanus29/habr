@@ -5,8 +5,8 @@ use app\models\ReplaceDate;
 // Url::to() вызывает UrlManager::createUrl() для создания URL
 use \yii\helpers\Html;
 use yii\widgets\LinkPager;
-$this->title = 'OskolNews | Новости Старого Оскола, бесплатная публикация новостей и статей';
-
+$this->title = 'About';
+$this->registerCssFile('/css/post.css');
 
 ?>
 <section class="content-wrap" id="content-wrap">
@@ -30,9 +30,7 @@ $this->title = 'OskolNews | Новости Старого Оскола, бесп
                     </div>
          -->
 <!--        <div class="filter-line">-->
-<!--            <a href="--><?//= Url::to(['index']) ?><!--">Лучшие</a>-->
-<!--            <a href="--><?//= Url::to(['all']) ?><!--">Все подряд</a>-->
-<!--            <a href="/filter"><i class="fas fa-filter"></i></a>-->
+<!--            <a href="#">Категория</a>-->
 <!--        </div>-->
 
 
@@ -47,7 +45,7 @@ $this->title = 'OskolNews | Новости Старого Оскола, бесп
 
 
         <?php
-        foreach ($model as $value): ?>
+        $value=$model; ?>
 
             <div class="item">
                 <div class="item-top">
@@ -66,15 +64,42 @@ $this->title = 'OskolNews | Новости Старого Оскола, бесп
                         href=""
                         onclick="bookmark(this);return false"
                         class="link"><span><i class="fas fa-bookmark"></i>&nbsp<?= Html::encode($value->count_bookmarked) ?></span></a>
-                    <a href="<?= Url::to(['post/'.$value->id.'#comments']) ?>"><span><i class="fas fa-comment-alt"></i>&nbsp<?= Html::encode(count($value->comments)) ?></span></a>
+
                 </div>
             </div>
 
 
-        <?php  endforeach; ?>
+
+        <div class="white-block">
+            <p class="prev">Комментарии <span> &nbsp<?php echo count($value->comments); ?></span></p>
+
+            <?php foreach ($comments as $comment): ?>
+
+            <div class="comment-item">
+                <div class="user-info">
+                    <a href="/user/<?php echo($comment->user->id) ?> " >
+                        <img src="/<?php echo('img'.$value->ownedByUser->img); ?>" alt="123">
+                        <span class="user-name"><?php echo($value->ownedByUser->username); ?></span>
+                    </a>
+
+                    <span class="date-comment"><?php echo (ReplaceDate::par_date($comment->date)); ?></span>
+                </div>
+                <p><?php echo (ReplaceDate::par_date($comment->messege)); ?></p>
+                <a href="#" class="responseto"><span>Ответить</span></a>
+                <a href="#" class="responseto bookmark"><span><i class="fas fa-bookmark"></i></span></a>
+            </div>
+
+            <?php  endforeach;  ?>
 
 
+            <div class="type-comment">
+                <p class="prev">Написать комментарий</p>
+                <textarea></textarea>
+                <button class="preview">Предпросмотр</button>
+                <button  class="send preview">Отправить</button>
+            </div>
 
+        </div>
 
 
 </section>

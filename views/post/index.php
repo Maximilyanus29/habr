@@ -53,7 +53,7 @@ $this->title = strip_tags($model->h1);
                 <span><?= \yii\helpers\Html::encode(ReplaceDate::par_date($model->date))  ?></span>
             </div>
             <h2 class="item-content-preview"><a href="#"><?php echo $model->h1;?></a></h2>
-            <div class="item-tags"><a href="#">Tutorial</a></div>
+<!--            <div class="item-tags"><a href="#">Tutorial</a></div>-->
             <?php echo $model->pageText;   ?>
 <hr />
             <div class="item-counters">
@@ -120,7 +120,7 @@ $this->title = strip_tags($model->h1);
     <div class="white-block display-flex white-block_row">
 
 
-        <a href="<?= Url::to('/post/'.$model->id.'/comments')  ?>" class="button button_center"><span><i class="fas fa-comment-alt"></i>&nbspКомментарии 5</span></a>
+        <a href="<?= Url::to('/post/'.$model->id.'/comments')  ?>" class="button button_center"><span><i class="fas fa-comment-alt"></i>&nbspКомментарии <?php echo count($model->comments)  ; ?></span></a>
     </div>
 </section>
 

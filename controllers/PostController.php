@@ -102,12 +102,18 @@ class PostController extends Controller
 
     public function actionRatingplus($id)
     {
+        if (Yii::$app->user->isGuest){
+            return $this->redirect('/post/'.$id);
+        }
         $model= Posts::findOne($id);
         $model->updateCounters(['rating' => 1]);
         return $this->redirect('/post/'.$id.'#rating');
     }
     public function actionRatingminus($id)
     {
+        if (Yii::$app->user->isGuest){
+            return $this->redirect('/post/'.$id);
+        }
         $model= Posts::findOne($id);
         $model->updateCounters(['rating' => -1]);
         return $this->redirect('/post/'.$id.'#rating');
