@@ -7,6 +7,8 @@ use app\models\Comments;
 use app\models\CreatePost;
 use app\models\Posts;
 use app\models\UploadForm;
+use app\models\User;
+use app\models\Users;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -15,6 +17,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use yii\web\UploadedFile;
+use app\models\Findincollection;
 
 class PostController extends Controller
 {
@@ -68,7 +71,8 @@ class PostController extends Controller
         $comments= Comments::findAll(['post' => $id]);
         $comment = new Comment();
         $model= Posts::findOne($id);
-        $model->updateCounters(['count_view' => 1]);
+        $model->processCountViewPost();
+//        $model->updateCounters(['count_view' => 1]);
 
 
 
@@ -103,20 +107,51 @@ class PostController extends Controller
     public function actionRatingplus($id)
     {
         if (Yii::$app->user->isGuest){
-            return $this->redirect('/post/'.$id);
+            return $this->redirect('/login');
         }
+
+        $user = Yii::$app->user->identity->getId();
+
         $model= Posts::findOne($id);
-        $model->updateCounters(['rating' => 1]);
-        return $this->redirect('/post/'.$id.'#rating');
+
+
+
+
+        if (empty(Findincollection::parse($model->uservoted))){
+            $model->updateCounters(['rating' => 1]);
+            $model->uservoted = $model->uservoted.$user.', ';
+            $model->save();
+            return $this->redirect('/post/'.$id.'#rating');
+        }
+        else{
+            return 'Вы уже голосовали';
+        }
+
+
     }
     public function actionRatingminus($id)
     {
         if (Yii::$app->user->isGuest){
-            return $this->redirect('/post/'.$id);
+            return $this->redirect('/login');
         }
+
+
+        $user = Yii::$app->user->identity->getId();
+
         $model= Posts::findOne($id);
-        $model->updateCounters(['rating' => -1]);
-        return $this->redirect('/post/'.$id.'#rating');
+
+
+
+
+        if (empty(Findincollection::parse($model->uservoted))){
+            $model->updateCounters(['rating' => -1]);
+            $model->uservoted = $model->uservoted.$user.', ';
+            $model->save();
+            return $this->redirect('/post/'.$id.'#rating');
+        }
+        else{
+            return 'Вы уже голосовали';
+        }
     }
 
 
@@ -127,7 +162,7 @@ class PostController extends Controller
 
 
         $model=Posts::find()->where(['id'=>$id])->one();
-        $comments=Comments::find()->where(['post'=>$id])->all();
+        $comments=Comments::find()->where(['post'=>$id])->orderBy('date ASC')->all();
         $commentForm= new Comment();
 
         if ($commentForm->load(Yii::$app->request->post()) && $commentForm->validate()) {
@@ -137,6 +172,7 @@ class PostController extends Controller
             }
 
             else{
+                var_dump($commentForm);
                 $err='Не отправлено';
                 return $this->render('comments',['model'=>$model,'comments'=>$comments,'commentForm'=>$commentForm,'err'=>$err]);
             }

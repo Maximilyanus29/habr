@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 use app\models\ReplaceDate;
 // Url::to() вызывает UrlManager::createUrl() для создания URL
@@ -79,7 +80,7 @@ $this->registerCssFile('/css/post.css');
                 <div class="user-info">
                     <a href="/user/<?php echo($comment->user->id) ?> " >
                         <img src="/<?php echo('img'.$value->ownedByUser->img); ?>" alt="123">
-                        <span class="user-name"><?php echo($value->ownedByUser->username); ?></span>
+                        <span class="user-name"><?php echo($comment->user->username); ?></span>
                     </a>
 
                     <span class="date-comment"><?php echo (ReplaceDate::par_date($comment->date)); ?></span>
@@ -92,11 +93,23 @@ $this->registerCssFile('/css/post.css');
             <?php  endforeach;  ?>
 
 
+
+
+
+
+
+
+
+
+
+
             <div class="type-comment">
+                <?php $form = ActiveForm::begin(); ?>
                 <p class="prev">Написать комментарий</p>
-                <textarea></textarea>
-                <button class="preview">Предпросмотр</button>
-                <button  class="send preview">Отправить</button>
+                <?= $form->field($commentForm, 'text')->textarea(); ?>
+                <?= Html::submitButton('Отправить', ['class' => 'send preview', 'name' => 'login-button']) ?>
+
+                <?php ActiveForm::end(); ?>
             </div>
 
         </div>

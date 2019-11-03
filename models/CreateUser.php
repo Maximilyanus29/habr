@@ -46,6 +46,7 @@ class CreateUser extends Model
         if(!$createUser){
             $createUser=new Users();
             $createUser->createUser((array)$this);
+            return true;
         }
         else {
             return 'такой пользователь уже есть';

@@ -77,7 +77,6 @@ class Users extends \yii\db\ActiveRecord
         $this->date=0;
         $this->bookmarks=0;
         $this->save();
-        var_dump($this);
     }
 
 }

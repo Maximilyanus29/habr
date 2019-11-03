@@ -29,7 +29,11 @@ use yii\helpers\Html; ?>
 
 
             <?= $form->field($model, 'h1')->textInput() ?>
-            <?= $form->field($model, 'text')->textInput(['style'=>['width'=>'90%',
+
+            <input type="text" id="what_doing" placeholder="Введите сюда текст">
+            <p>и нажмите одну из кнопок определющих действие</p>
+            <button class="bolder">bolder</button>
+            <?= $form->field($model, 'text')->textarea(['style'=>['width'=>'90%',
                 'height'=>'300px']]) ?>
             <?= $form->field($model, 'description')->textInput() ?>
 
@@ -49,3 +53,16 @@ use yii\helpers\Html; ?>
     </div>
 
 </section>
+
+<script>
+
+    var bolder = document.querySelector('.bolder');
+    var what_doing = document.querySelector('#what_doing');
+    var textarea = document.querySelector('textarea');
+    bolder.onclick=function () {
+        textarea.value+='<h1>'+what_doing.value+'</h1>';
+    }
+
+
+
+</script>

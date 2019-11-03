@@ -4,7 +4,7 @@
 namespace app\controllers;
 
 
-use app\models\Bookmark;
+use app\models\Findincollection;
 use app\models\Comments;
 use app\models\Users;
 use Yii;
@@ -72,7 +72,7 @@ class UserController extends Controller
         }
         $query=Users::find()->where(['id'=>$id])->one();
         $book=$query->bookmarks;
-        $bookclass= new Bookmark();
+        $bookclass= new Findincollection();
         $bookclass->parse($book);
         $collection = $bookclass->collection;
 

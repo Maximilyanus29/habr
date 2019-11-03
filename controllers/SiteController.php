@@ -240,10 +240,10 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())&& $model->validate()) {
 
             if ($model->newUser()){
-                return 'registration is successfull';
+                return $this->render('succes');
             }
             else{
-                return "Какая то ошибка";
+                return $this->render('nosucces');
             }
 
         }
