@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "comment".
@@ -71,11 +72,19 @@ class Comments extends \yii\db\ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
+    public function getTime()
+    {
+        $time= new Query();
+        $time->select('CURRENT_TIME()');
+        return $time;
+    }
+
     public function createComment($arr){
 
         $this->messege=$arr['text'];
         $this->user_id=$arr['username'];
-        $this->date=date('Y-m-d H:i:s');
+        $this->date=date('Y-m-d');
+        $this->time=$this->getTime();
         $this->post=$arr['post'];
         $this->save();
     }

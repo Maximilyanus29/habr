@@ -8,13 +8,37 @@ class ReplaceDate
 {
     static function par_date($date, $time){
 
-
+//        $current = strtotime(date("Y-m-d"));
+//        $date = strtotime($date);
+//
+//        $datediff = $date - $current;
+//        $difference = floor($datediff/(60*60*24));
+//        if($difference==0)
+//        {
+//            $date = 'Сегодня';
+//        }
+//        else if($difference > 1)
+//        {
+//            $date = 'Future Date';
+//        }
+//        else if($difference > 0)
+//        {
+//            $date = 'Завтра';
+//        }
+//
+//
+//        else if($difference == -1)
+//        {
+//            $date = 'Вчера';
+//        }
+//
+//
 
 
         switch ($date) {
 
 
-            case $date>date('Y-m-d',strtotime('-1 day')):
+            case $date==date('Y-m-d'):
 
                 $date = 'Сегодня';
 
@@ -28,7 +52,7 @@ class ReplaceDate
 
             case $date>date('Y-m-d',strtotime('-2 day')):
 
-                $date = 'Позавчера';
+                $date = 'позавчера';
 
                 break;
 
@@ -66,7 +90,6 @@ class ReplaceDate
             default:
                 break;
         }
-
 
 
 

@@ -1,4 +1,4 @@
-@import url("comment.css");
+/*@import url("comment.css");*/
 @import url("postprefooter.css");
 
 * {
@@ -248,4 +248,24 @@ p img {
 .rating a:last-child{
   color: red;
   font-weight: 900;
+}
+
+textarea{
+  min-width: 100% !important;
+  max-width: 100%!important;
+  height: 100px;
+  padding: 5px;
+  font-size: 1.2em;
+  font-family: 'Fira Sans', sans-serif;
+  border-radius: 5px;
+}
+.help-block-error{
+  color: red;
+}
+
+input, select{
+  width: 100%;
+  padding: 3px;
+  border-radius: 5px;
+  border: 1px solid silver;
 }

@@ -53,7 +53,7 @@ $this->title = 'OskolNews | Новости Старого Оскола, бесп
                 <div class="item-top">
                     <a href="<?= Url::to(['user/'.$value->ownedByUser->id]) ?>" class="user-avatar-icon"><img src="<?php echo('/img'.$value->ownedByUser->img); ?>" alt=""></a>
                     <a href="<?= Url::to(['user/'.$value->ownedByUser->id]) ?>" class="user-nickname"><?php echo($value->ownedByUser->username); ?></a>
-                    <span><?php echo(ReplaceDate::par_date($value->date)); ?></span>
+                    <span><?php echo(ReplaceDate::par_date($value->date, $value->time)); ?></span>
                 </div>
                 <h2 class="item-content-preview"><a href="<?= Url::to(['post/'.$value->id]) ?>"><?php echo($value->h1); ?></a></h2>
                 <div class="item-tags"><a href="#">Tutorial</a></div>

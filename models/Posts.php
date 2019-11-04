@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -122,18 +123,26 @@ class Posts extends \yii\db\ActiveRecord
         return true;
     }
 
+    public function getTime()
+    {
+        $time= new Query();
+        $time->select('CURRENT_TIME()');
+        return $time;
+    }
 
-//    public function createPost($arr){
-//
-//        $this->h1=$arr['h1'];
-//        $this->pageText=$arr['text'];
-//        $this->description='faesgrdtfyfd';
-//        $this->in_category=$arr['product_category'];
-//        $this->owned_by_user=$arr['username'];
-//        $this->count_view=0;
-//        $this->count_bookmarked=0;
-//        $this->rating=0;
-//        $this->date=date('Y-m-d H:i:s');
-//        $this->save();
-//    }
+
+    public function createPost($arr){
+
+        $this->h1='<h1>'.$arr['h1'].'</h1>';
+        $this->pageText=$arr['text'];
+        $this->description='faesgrdtfyfd';
+        $this->in_category=$arr['product_category'];
+        $this->owned_by_user=$arr['username'];
+        $this->count_view=0;
+        $this->count_bookmarked=0;
+        $this->rating=0;
+        $this->date=date('Y-m-d');
+        $this->time=$this->getTime();
+        $this->save();
+    }
 }

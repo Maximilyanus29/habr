@@ -131,7 +131,7 @@ class SiteController extends Controller
 
     public function actionAll()
     {
-        $query = Posts::find()->orderBy('date DESC');
+        $query = Posts::find()->orderBy('date DESC, time DESC');
 //        var_dump($query);
         // делаем копию выборки
         $countQuery = clone $query;

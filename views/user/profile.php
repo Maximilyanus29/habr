@@ -46,7 +46,7 @@ else{
 				<a href="<?= Html::encode($model->id); ?>/profile" onclick="link(event)"><li class="active">Профиль</li></a>
 				<a href="<?= Html::encode($model->id); ?>/posts" onclick="link(event)"><li>Публикации</li></a>
 				<a href="<?= Html::encode($model->id); ?>/comments" onclick="link(event)"><li>Комментарии</li></a>
-				<a href="<?= Html::encode($model->id); ?>/bookmarks" onclick="link(event)"><li>Закладки</li></a>
+				<a href="<?= Html::encode($model->id); ?>/pashal" onclick="link(event)"><li>Закладки</li></a>
 		</ul>
 	</div>
 
@@ -131,6 +131,10 @@ function link(e){
 		  .then(
 		    response => inserToRoot(response));
 }
+
+
+
+
 
 function resetmenu() {
 	var user_menu = document.getElementById('menu-user').children;

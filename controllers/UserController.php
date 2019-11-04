@@ -58,6 +58,12 @@ class UserController extends Controller
         return $this->renderAjax('postlist',['model'=>$model]);
     }
 
+    public function actionPashal($id)
+    {
+        $model=Users::find()->where(['id'=>$id])->one();
+        return $this->renderAjax('pashal',['model'=>$model]);
+    }
+
 //    public function actionMypost()
 //    {
 //        $user = Yii::$app->user->identity->getId();
