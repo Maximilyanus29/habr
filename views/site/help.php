@@ -1,80 +1,85 @@
-
 <?php
 $this->registerCssFile('/css/user.css');
 $this->registerCssFile('/css/post.css');
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+$this->registerCssFile('/css/help.css');
 ?>
-
 <section class="content-wrap">
-    <div class="white-block display-flex white-block_row">
-
-<h1>Заглушка</h1>
-        <h1>Заглушка</h1>
-        <h1>Заглушка</h1><h1>Заглушка</h1><h1>Заглушка</h1><h1>Заглушка</h1><h1>Заглушка</h1>
-
-
-
-
-<div class="tm-page__content">  <div class="info_page h-info h-info_rules">
-        <h2>Правила сайта</h2>
-        <p><i>Последнее редактирование&nbsp;— 22 января 2019 года.</i></p>
-
-        <p>Обычно IT-специалисты и&nbsp;интересующиеся данной сферой&nbsp;— это люди культурные, уважающие не&nbsp;только себя, но&nbsp;и&nbsp;собеседников и&nbsp;читателей. Для того чтобы ресурс оставался площадкой для общения таких людей, существуют правила, за&nbsp;нарушение которых модераторы могут понизить права аккаунта до&nbsp;ReadOnly.</p>
-
-        <h2>Вот список того, чего на&nbsp;ресурсе делать не&nbsp;следует</h2>
-
-        <ul>
-            <li>
-                <h3>Рекламировать ресурсы в&nbsp;обход правил</h3>
-                <p>Для привлечения внимания к&nbsp;проектам, компаниям, коммерческим продуктам, услугам, сервисам и&nbsp;мероприятиям предназначены <a href="https://tmtm.ru/services/corpblog/">корпоративные блоги</a> и&nbsp;хаб «Я&nbsp;пиарюсь». Попытки поместить их&nbsp;упоминания вне указанных разделов повлекут за&nbsp;собой понижение прав аккаунта.<br><br></p>
-                <p>Исключение составляют упоминания авторами своей должности в&nbsp;компании (без указания ссылки на&nbsp;сайт компании), своих контактных данных (включая адреса персональных аккаунтов в&nbsp;соцсетях), своих персональных блогов на&nbsp;крупных медиа-ресурсах (LJ, Medium и&nbsp;др.). Допускается упоминание профильных youtube-каналов, чатрумов и&nbsp;групп в&nbsp;соцсетях, не&nbsp;носящих названия проекта, компании, продукта, услуги, сервиса или мероприятия.</p>
-            </li>
-            <li>
-                <h3>Заниматься плагиатом</h3>
-                <p>Не&nbsp;следует копировать на&nbsp;«Хабр» тексты, опубликованные другими людьми на&nbsp;других ресурсах, но&nbsp;можно копировать собственные тексты, если они не&nbsp;нарушают правила ресурса.</p>
-            </li>
-            <li>
-                <h3>Путать сайт с&nbsp;Твиттером</h3>
-                <p>Односложные публикации вида «Смотрите, какую я&nbsp;нашел ссылку», «Chrome обновился, вот тут чейнджлог» и&nbsp;подобное не&nbsp;приветствуются. Даже если новость изначально короткая, постарайтесь сопроводить её&nbsp;развёрнутым комментарием.</p>
-            </li>
-            <li>
-                <h3>Путать сайт с&nbsp;жалобной книгой</h3>
-                <p>Если у&nbsp;вас проблемы с&nbsp;сотовым оператором, с&nbsp;провайдером интернета или хостинга, или с&nbsp;чем-то ещё, всегда можно связаться со&nbsp;службой поддержки нужного вам ресурса. Или с&nbsp;компетентными органами. Но&nbsp;не&nbsp;следует использовать «Хабр» как рупор, дабы рассказать всем о&nbsp;постигшей вас ситуации.</p>
-            </li>
-            <li>
-                <h3>Путать сайт с имиджбордом</h3>
-                <p>У нас не принято общаться изображениями. Изображение иллюстрирующее вашу мысль должно сопровождаться текстовым комментарием, исключающим неоднозначность его трактовки. Крупные изображения следует помещать под спойлер, чтобы пользователям не приходилось тратить время на их пролистывание.</p>
-            </li>
-            <li>
-                <h3>Инициировать политические дискуссии и&nbsp;участвовать в&nbsp;них</h3>
-                <p>Тематика нашего ресурса определена довольно чётко. Для рассуждений о&nbsp;политике есть куда более подходящие сайты. Но&nbsp;не&nbsp;«Хабр».</p>
-            </li>
-            <li>
-                <h3>Пытаться собирать средства на&nbsp;проекты</h3>
-                <p>Здесь тоже всё просто&nbsp;— для сбора средств существуют специально созданные для этого площадки.</p>
-            </li>
-            <li>
-                <h3>Использовать смайлики, коверкать слова, игнорировать правила русского языка</h3>
-                <p>Даже если русский язык был не&nbsp;самым вашим любимым предметом в&nbsp;школе или не&nbsp;является родным&nbsp;— проверка орфографии в&nbsp;браузере у&nbsp;вас наверняка есть, не&nbsp;стоит ею&nbsp;пренебрегать. Это сохранит как вашу карму от&nbsp;минусов, так и&nbsp;ваш аккаунт.</p>
-            </li>
-            <li>
-                <h3>Оскорблять других пользователей, не&nbsp;следить за&nbsp;эмоциями</h3>
-                <p>Мат, оскорбления, переходы на&nbsp;личности, эвфемизмы, троллинг&nbsp;— хорошие способы быстро и&nbsp;надежно сменить текущий статус аккаунта на&nbsp;ReadOnly.</p>
-            </li>
-            <li>
-                <h3>Беспокоить пользователей в личных сообщениях</h3>
-                <p>Не следует беспокоить пользователей: просьбами изменить чью-либо карму или рейтинг публикации; просьбами о консультации (для вопросов к IT-специалистам существует сервис <a href="https://toster.ru/" target="_blank">«Тостер»</a>); просьбами о помощи в настройке чего-либо или решении какой-либо задачи (для поиска помощников и исполнителей существует сервис <a href="https://freelansim.ru/" target="_blank">«Фрилансим»</a>); просьбами поучаствовать в опросе или высказать свое мнение о чем-либо; своими резюме или предложениями трудоустройства (для поиска работы и работников существует сервис <a href="https://moikrug.ru/" target="_blank">«Мой круг»</a>); отзывами о компании, в которой они работают или вопросами к этой компании; любыми обращениями, направленными на привлечение внимания к какому-либо проекту, продукту, мероприятию или услуге.</p>
-            </li>
-            <li>
-                <h3>Создавать виртуалов</h3>
-                <p>Всегда приятно поговорить с&nbsp;умным человеком, но&nbsp;создавать для этого добавочные аккаунты и&nbsp;накручивать с&nbsp;них карму и&nbsp;голоса за&nbsp;публикации не&nbsp;стоит.</p>
-            </li>
-        </ul>
-
-        <p>Список нарушений остаётся открытым, потому что всегда можно придумать что-то, не&nbsp;описанное выше. В&nbsp;таких случаях модераторы руководствуются здравым смыслом и&nbsp;собственным чувством прекрасного. Обсуждать их&nbsp;решения и&nbsp;создавать на&nbsp;эту темы агитационные публикации не&nbsp;стоит&nbsp;— если они кого-то забанили, значит, у&nbsp;них была довольно веская причина.</p>
-
-        <p>Как видите, ничего сложного в&nbsp;правилах нет, и&nbsp;мы&nbsp;будем признательны, если вы&nbsp;будете их&nbsp;соблюдать.</p>
+    <div class="tm-page tm-page_narrow">
+        <div class="tm-section-name">
+            <h1 class="tm-section-name__text">
+                Информация
+            </h1>
+        </div>
+        <div id='scroll' class="scroll"><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/rules" class="tm-tab__link">
+         Правила <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/registration" class="tm-tab__link">
+         Регистрация и приглашения <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/sandbox" class="tm-tab__link">
+         Песочница <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/habracentre" class="tm-tab__link">
+         Хабрацентр <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/karma" class="tm-tab__link">
+         Карма и рейтинг <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/settings" class="tm-tab__link">
+         Настройки <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/hubs" class="tm-tab__link">
+         Хабы <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/lenta" class="tm-tab__link">
+         Ленты <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/posts" class="tm-tab__link">
+         Публикации <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/tracker" class="tm-tab__link">
+         Трекер <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/habramail" class="tm-tab__link">
+         Диалоги <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/companies" class="tm-tab__link">
+         Компании <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/problems" class="tm-tab__link">
+         Проблемы с почтой <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/sponsorshipinfo" class="tm-tab__link">
+         Спонсорство <span class="tm-tab__counter"></span></a></span><span class="tm-tab tm-tabs-list__tab"><a href="/ru/info/help/other" class="tm-tab__link">
+         Разное <span class="tm-tab__counter"></span></a></span>
+        </div>
     </div>
-</div>
-    </div></section>
+    <div class="tm-page_info">
+        <div class="tm-page__content">
+            <div class="info_page h-info">
+                <div class="white-block" id="root">
+                    <p><i>Последнее редактирование&nbsp;— 27 июня 2017 года.</i></p>
+                    <p>Данный сайт представляет собой платформу для информационного обмена между участниками пользовательского сообщества. Сообщество пользователей сайта является саморегулируемым, поэтому разобраться во всех нюансах работы проекта с первого раза получается далеко не у всех. Чтобы объяснить, как всё устроено, мы подготовили данный справочный раздел. Справа представлен рубрикатор справочного раздела. Для получения разъяснений выберите соответствующий пункт рубрикатора и ознакомьтесь с предложенной информацией. Если вам не удалось найти ответ на интересующий вопрос, пожалуйста, воспользуйтесь формой обратной связи.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    function link(e){
+
+
+        e.preventDefault();
+        resetmenu();
+        e.currentTarget.children[0].classList.add('active');
+
+
+        httpGet(e.currentTarget.href)
+            .then(
+                response => inserToRoot(response));
+    }
+
+    function inserToRoot(data) {
+        var root = document.getElementById('root');
+        root.innerHTML=data;
+        console.log('success');
+    }
+
+    function resetmenu() {
+        var user_menu = document.getElementById('scroll').children;
+
+        for(var val of user_menu){
+
+            val.children[0].children[0].classList.remove('active');
+
+        }
+    }
+
+    var a = document.getElementsByClassName('tm-tab__link');
+
+    for(b of a){
+        b.addEventListener('click', link);
+
+    }
+
+
+</script>

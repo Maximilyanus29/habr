@@ -29,7 +29,7 @@ use app\models\ReplaceDate;
     <div class="comment-item">
         <div class="user-info">
             <a href="#">
-                <img src="" alt="123">
+                <img src="/img<?= Html::encode($value->user->img) ?>" alt="123">
                 <span class="user-name"><?= Html::encode($value->user->username) ?></span>
             </a>
 

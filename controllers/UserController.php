@@ -67,14 +67,14 @@ class UserController extends Controller
 
     public function actionBookmarks($id)
     {
-        if (Yii::$app->user->isGuest){
-            return $this->redirect('/post/'.$id);
-        }
+//        if (Yii::$app->user->isGuest){
+//            return $this->redirect('/post/'.$id);
+//        }
+//
         $query=Users::find()->where(['id'=>$id])->one();
         $book=$query->bookmarks;
-        $bookclass= new Findincollection();
-        $bookclass->parse($book);
-        $collection = $bookclass->collection;
+
+        $collection = Findincollection::parse($book);
 
         $model=Posts::find()->where(['id' => $collection])->all();
 

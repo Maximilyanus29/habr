@@ -1,0 +1,43 @@
+.scroll {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: #f7f7f7;
+  height: 80px;
+  width: 100%;
+  border-bottom: 1px solid #d5dddf; }
+  .scroll a {
+    position: relative;
+    color: #4d80aa!important;
+    font-weight: 600;
+    font-family: 'Fira Sans',sans-serif;
+    letter-spacing: .8px;
+    line-height: 20px;
+    font-size: 15px;
+    padding: 20px 16px;
+    margin: 0 5px;
+    text-transform: uppercase; }
+    .scroll a:last-child {
+      float: right; }
+  .scroll .active:after {
+    content: "";
+    display: block;
+    background-color: #77a8d0;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%; }

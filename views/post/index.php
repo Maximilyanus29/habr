@@ -48,17 +48,23 @@ $this->title = strip_tags($model->h1);
 
         <div class="item">
             <div class="item-top">
-                <a href="#" class="user-avatar-icon"><img src="/img/24x24.jpg" alt=""></a>
-                <a href="#" class="user-nickname"><?php echo($model->ownedByUser->username); ?></a>
-                <span><?= \yii\helpers\Html::encode(ReplaceDate::par_date($model->date))  ?></span>
+                <a href="/user/<?php echo $model->owned_by_user ?> " class="user-avatar-icon"><img src="/img/24x24.jpg" alt=""></a>
+                <a href="/user/<?php echo $model->owned_by_user ?>" class="user-nickname"><?php echo($model->ownedByUser->username); ?></a>
+                <span><?= \yii\helpers\Html::encode(ReplaceDate::par_date($model->date, $model->time))  ?></span>
             </div>
             <h2 class="item-content-preview"><a href="#"><?php echo $model->h1;?></a></h2>
 <!--            <div class="item-tags"><a href="#">Tutorial</a></div>-->
             <?php echo $model->pageText;   ?>
 <hr />
             <div class="item-counters">
-                <span class="rating" id="rating"><a href="<?= Url::to(['post/ratingplus/'.Html::encode($model->id)]) ?>">+ </a><i class="fas fa-gem"></i>&nbsp<?= Html::encode($model->rating) ?><a
-                            href="<?= Url::to(['post/ratingminus/'.Html::encode($model->id)]) ?>"> -</a></span>
+                <span class="rating" id="rating">
+                    <a href="<?= Url::to(['post/ratingminus/'.Html::encode($model->id)]) ?>"> - </a>
+
+                    <i class="fas fa-gem"></i>&nbsp <?= Html::encode($model->rating) ?>
+
+                    <a href="<?= Url::to(['post/ratingplus/'.Html::encode($model->id)]) ?>">+ </a>
+                </span>
+
                 <span><i class="fas fa-eye"></i>&nbsp<?= Html::encode($model->count_view) ?></span>
                 <a
                         id="fav"
@@ -95,7 +101,7 @@ $this->title = strip_tags($model->h1);
             <span class="user-info__name"><?php echo($isAdmin) ?></span>
         </div>
 
-        <a href="#" class="button button_material"><span>Подписаться</span></a>
+<!--        <a href="#" class="button button_material"><span>Подписаться</span></a>-->
     </div>
 
     <div class="white-block display-flex white-block_row">

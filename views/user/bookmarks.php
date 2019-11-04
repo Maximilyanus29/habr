@@ -51,7 +51,7 @@ $this->title = 'OskolNews | Новости Старого Оскола, бесп
 
             <div class="item">
                 <div class="item-top">
-                    <a href="<?= Url::to(['user/'.$value->ownedByUser->id]) ?>" class="user-avatar-icon"><img src="<?php echo('img'.$value->ownedByUser->img); ?>" alt=""></a>
+                    <a href="<?= Url::to(['user/'.$value->ownedByUser->id]) ?>" class="user-avatar-icon"><img src="<?php echo('/img'.$value->ownedByUser->img); ?>" alt=""></a>
                     <a href="<?= Url::to(['user/'.$value->ownedByUser->id]) ?>" class="user-nickname"><?php echo($value->ownedByUser->username); ?></a>
                     <span><?php echo(ReplaceDate::par_date($value->date)); ?></span>
                 </div>

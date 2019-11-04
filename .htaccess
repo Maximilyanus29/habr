@@ -2,6 +2,10 @@ Options +FollowSymLinks
 IndexIgnore */*
 RewriteEngine on
 
+#enable HTTPS only
+#RewriteCond %{HTTPS} !=on
+#RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+
 RewriteCond %{REQUEST_URI} !^/(web)
 RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
 RewriteRule ^css/(.*)$ web/css/$1 [L]
@@ -10,6 +14,9 @@ RewriteRule ^img/(.*)$ web/img/$1 [L]
 RewriteRule ^lib/(.*)$ web/lib/$1 [L]
 RewriteRule ^font/(.*)$ web/font/$1 [L]
 RewriteRule (.*) /web/$1
+
+
+
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

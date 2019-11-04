@@ -5,12 +5,21 @@ $this->registerCssFile('/css/user.css');
 $this->registerCssFile('/css/post.css');
 
 use yii\helpers\Html;
+
+if (Yii::$app->user->isGuest){
+    $UserImg='H';
+}
+else{
+    $UserImg='<img src="/img'. $model->img.'" > ';
+}
+
+
 ?>
 		
 <section class="content-wrap">
 	<div class="white-block display-flex white-block_row bottomnone">
 		<div class="users-info-wrap display-flex">
-			<div class="user-block user-block_64 user-block_default-img">H</div>
+			<div class="user-block user-block_64 user-block_default-img"><?php echo $UserImg ; ?></div>
 			<div class="user-block user-block_64 user-block_rating">
 				<span class="user-block__rating-id"><?= Html::encode($model->karma); ?></span>
 				<div class="user-block__rating-name">Карма</div>

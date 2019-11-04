@@ -7,6 +7,7 @@ use app\models\Comment;
 use app\models\Comments;
 use app\models\Companyes;
 use app\models\CreateUser;
+use app\models\Findincollection;
 use app\models\LoginForm;
 use app\models\Posts;
 use app\models\Users;
@@ -188,6 +189,14 @@ class SiteController extends Controller
         return $this->render('search');
     }
 
+    public function actionSearching($id)
+    {
+        $model = Posts::find()->where(['like', 'h1', '%'.$id.'%', false])->all();
+
+
+        return $this->renderAjax('finded',['model'=>$model]);
+    }
+
     public function actionCompanyes()
     {
         $model = Companyes::find()->all();
@@ -274,19 +283,34 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             $users = new Users();
             $user = $users->find()->where(['id' => Yii::$app->user->identity->getId()])->one();
-            $user->bookmarks=$user->bookmarks.','.$id;
+//            var_dump($user);
 
-            $post = Posts::findOne($id);
-            $post->updateCounters(['count_bookmarked' => 1]);
 
-            $user->save();
-            var_dump($user);
-            return $this->redirect('/');
+            if (!in_array(strval($id) , Findincollection::parse($user->bookmarks))){
+                $user->bookmarks=$user->bookmarks.','.$id;
+                $post = Posts::findOne($id);
+                $post->updateCounters(['count_bookmarked' => 1]);
+
+                $user->save();
+
+                return $this->redirect('/');
+
+
+            }
+            else{
+                return 'Уже есть';
+
+            }
+
+
 
         }
 
         return false;
     }
+
+
+
 
     /**
      * Displays contact page.

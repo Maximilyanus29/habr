@@ -6,90 +6,55 @@ namespace app\models;
 
 class ReplaceDate
 {
-    static function par_date($date){
+    static function par_date($date, $time){
+
+
+
 
         switch ($date) {
 
 
+            case $date>date('Y-m-d',strtotime('-1 day')):
 
-            case $date<date('Y-m-d H:i:s',strtotime('-1 week')):
-
-                return 'больше недели назад';
-
-                break;
-
-            case $date<date('Y-m-d H:i:s',strtotime('-1 day')):
-
-                return 'вчера';
+                $date = 'Сегодня';
 
                 break;
 
-            case $date<date('Y-m-d H:i:s',strtotime('-1 hours')):
+            case $date>date('Y-m-d',strtotime('-1 day')):
 
-                return 'час назад';
-
-                break;
-
-            case $date<date('Y-m-d H:i:s',strtotime('-30 minutes')):
-
-                return 'полчаса назад';
+                $date = 'вчера';
 
                 break;
 
+            case $date>date('Y-m-d',strtotime('-2 day')):
 
-
-            case $date<date('Y-m-d H:i:s',strtotime('-20 minutes')):
-
-                return '20 минут назад';
+                $date = 'Позавчера';
 
                 break;
 
+            case $date>date('Y-m-d',strtotime('-1 week')):
 
-            case $date<date('Y-m-d H:i:s',strtotime('-10 minutes')):
-
-                return '10 минут назад';
-
-                break;
-
-
-            case $date<date('Y-m-d H:i:s',strtotime('-5 minutes')):
-
-                return '5 минут назад';
+                $date = 'Неделю назад';
 
                 break;
 
+            case $date>date('Y-m-d',strtotime('-1 month')):
 
-
-            case $date<date('Y-m-d H:i:s',strtotime('-1 minutes')):
-
-                return '1 минуты назад';
+                $date = 'Месяц назад';
 
                 break;
 
+            case $date>date('Y-m-d',strtotime('-6 month')):
 
-
-
-
-            case $date<date('Y-m-d H:i:s',strtotime('-5 Second')):
-
-                return '5 секунд назад';
+                $date = 'Пол года назад';
 
                 break;
 
+            case $date>date('Y-m-d',strtotime('-1 year')):
 
-            case $date<date('Y-m-d H:i:s',strtotime('-1 Second')):
-
-                return 'секунду назад';
+                $date = 'Год назад';
 
                 break;
-
-
-
-
-
-
-
-
 
 
 
@@ -99,8 +64,18 @@ class ReplaceDate
 
 
             default:
-                return $date;
                 break;
         }
+
+
+
+
+
+
+        $res=$date.' в '.$time;
+        return $res;
+
+
+
     }
 }

@@ -7,6 +7,9 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'ru-RU',
+    'sourceLanguage' => 'en-US',
+    'timeZone' => 'Europe/Moscow',
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
@@ -19,6 +22,14 @@ $config = [
     ],
 
     'components' => [
+
+
+
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'dateFormat' => 'medium',
+        ],
+
         'request' => [
             'baseUrl'=> '',
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -56,7 +67,9 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+
             'rules' => [
+
                 'index' => 'site/index',
                 'post/<id:\d+>'=> 'post/index',
                 'post/<action:\w+>/<id:\d+>'=> 'post/<action>',
@@ -69,7 +82,10 @@ $config = [
                 'all' => 'site/all',
                 '/help' => 'site/help',
                 '/callback' => 'site/callback',
+
                 '/search' => 'site/search',
+                '/searching/<id:\w+>'=>'site/searching',
+
                 '/addbookmark/<id:\d+>' => 'site/addbookmark',
 
                 'top' => 'site/top',
@@ -80,7 +96,10 @@ $config = [
                 'admin/category/<id:\d+>'=>'admin/default/parse',
                 'users/'=>'user/index',
                 'companyes/'=>'site/companyes',
-                'company/<id:\d+>'=>'site/company'
+                'company/<id:\d+>'=>'site/company',
+                '/search/<id:\w+>'=>'site/search',
+
+                '/ru/info/help/<action:\w+>' => 'help/<action>'
 
             ],
         ],
